@@ -1,10 +1,14 @@
 #This is just a little terminal-esquie thing I decided to throw together- not really all that functional yet
+#Developed by Matthew Knecht
+#Contributors:
+#Sean Hinchee
+#Wow this totally looks so professional xD
 
 #Needed in order to prevent looping
 global stop
 stop = 0
 #Current avilable commands(or at least ones that are possible in python)
-commands = ['echo', 'help', 'quit', 'exit']
+commands = ['echo', 'help', 'quit']
 #Currently not functioning- will define what to reset to when calling reset
 def reset():
 	command = ""
@@ -14,9 +18,9 @@ def commands():
 	global help
 	global echo
 	global echor
-	global exit
 p = '>'
-
+global unknown
+unknown = "Unknown command: type \"help\" for help."
 print "Welcome to my testing bay!"
 print "Get a list of commands by typing \"help\"."
 #Defines variables for use all over the code
@@ -29,7 +33,7 @@ if command == 'quit':
 while 0 == 0:
 	while stop != 1:
 
-		if command == ['quit'or'exit']:
+		if command == ['quit']:
 			quit()
 		elif command == 'help':
 			print """
@@ -45,59 +49,13 @@ Current commands:
 	command = raw_input(p)
 	stop = 0
 	reset()
-	if command == 'quit'or'exit':
+	if command == 'quit':
 		quit()	
-	elif command == 'echo %r': 
-		print (raw_input())		
+	elif command == 'echo':
+		print "echor"	
 	elif command == 'clear':
 		print """
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
+""" * 25
+	elif command != commands:
+		print unknown
