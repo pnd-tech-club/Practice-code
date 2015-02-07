@@ -29,6 +29,7 @@ global command
 command = raw_input(p)
 if command == 'quit':
 	quit()
+echor = raw_input('%r %r')
 #Needed in order to keep the process running
 while 0 == 0:
 	while stop != 1:
@@ -51,8 +52,9 @@ Current commands:
 	reset()
 	if command == 'quit':
 		quit()	
-	elif command == 'echo':
-		print "echor"	
+	elif 'echo ' in command:
+		print echor
+	
 	elif command == 'clear':
 		print """
 
