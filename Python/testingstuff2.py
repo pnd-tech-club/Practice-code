@@ -17,7 +17,6 @@ def commands():
 	global quit
 	global help
 	global echo
-	global echor
 p = '>'
 global unknown
 unknown = "Unknown command: type \"help\" for help."
@@ -29,7 +28,6 @@ global command
 command = raw_input(p)
 if command == 'quit':
 	quit()
-echor = raw_input('%r %r')
 #Needed in order to keep the process running
 while 0 == 0:
 	while stop != 1:
