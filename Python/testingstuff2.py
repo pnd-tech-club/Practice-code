@@ -4,7 +4,7 @@
 global stop
 stop = 0
 #Current avilable commands(or at least ones that are possible in python)
-commands = ['echo', 'help', 'quit']
+commands = ['echo', 'help', 'quit', 'exit']
 #Currently not functioning- will define what to reset to when calling reset
 def reset():
 	command = ""
@@ -14,6 +14,7 @@ def commands():
 	global help
 	global echo
 	global echor
+	global exit
 p = '>'
 
 print "Welcome to my testing bay!"
@@ -28,7 +29,7 @@ if command == 'quit':
 while 0 == 0:
 	while stop != 1:
 
-		if command == ['quit']:
+		if command == ['quit'or'exit']:
 			quit()
 		elif command == 'help':
 			print """
@@ -44,10 +45,10 @@ Current commands:
 	command = raw_input(p)
 	stop = 0
 	reset()
-	if command == 'quit':
-		quit()
-	elif command == 'echo %r':
-		print '%r' % echor
+	if command == 'quit'or'exit':
+		quit()	
+	elif command == 'echo %r': 
+		print (raw_input())		
 	elif command == 'clear':
 		print """
 
