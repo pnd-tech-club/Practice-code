@@ -53,8 +53,7 @@ Current commands:
 	if command == 'quit':
 		quit()	
 	elif 'echo ' in command:
-		print echor
-	
+		print command
 	elif command == 'clear':
 		print """
 
