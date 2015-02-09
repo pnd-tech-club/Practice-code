@@ -39,28 +39,28 @@ func main() {
 				DO NOT MODIFY BELOW THIS LINE *****/
 				/* Converts to []string from string */
 				//usrcmds := strings.SplitN(usrinput, " ", 2)
-				fmt.Printf("FULL COMMAND: %s\n", usrcmds)
+				//fmt.Printf("FULL COMMAND: %s\n", usrcmds)
 
 				binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
 				if patherr != nil {
 					panic(patherr)
 				}
 
-				fmt.Printf("BINARY: %s\n", binary)
+				//fmt.Printf("BINARY: %s\n", binary)
 
 				args := usrcmds[1:len(usrcmds)]
-				fmt.Printf("ARGS: %s\n", args)
+				//fmt.Printf("ARGS: %s\n", args)
 
 				// combination of two things, stdout was previously usrCommand
 				// *see exec/Command's returns
 				stdout, _ := exec.Command(binary, args...).Output()
 				//stdout, commanderr := usrCommand.Output()
+				// this is so hilariously unsafe it's almost funny
+				/*if commanderr != nil {
+					panic(commanderr)
+				} */
 
-				//if commanderr != nil {
-				//	panic(commanderr)
-				//}
-
-				fmt.Printf("%s", stdout)
+				fmt.Printf("\n%s", stdout)
 		} //else end
 	} //for
 
