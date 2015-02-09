@@ -22,17 +22,17 @@ func main() {
 	for loopstate != false {
 		fmt.Print(prompt)
 		scanerr := scanner.Scan()
-		/* Begin Hackage */
-
-
-
-		/* Everything following runs system commands
-		DO NOT MODIFY BELOW THIS LINE */
 		if scanerr == false {
 			fmt.Println("Scanner error!")
 		}
 		usrinput := scanner.Text()
+		/* Begin Hackage */
 
+
+
+
+		/***** Everything following runs system commands
+		DO NOT MODIFY BELOW THIS LINE *****/
 		/* Converts to []string from string */
 		//usrcmds := strings.SplitN(usrinput, " ", 2)
 		usrcmds := strings.Fields(usrinput)
