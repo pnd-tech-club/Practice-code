@@ -53,14 +53,14 @@ func main() {
 
 				// combination of two things, stdout was previously usrCommand
 				// *see exec/Command's returns
-				stdout, _ := exec.Command(binary, args...).Output()
+				stdout, commanderr := exec.Command(binary, args...).Output()
 				//stdout, commanderr := usrCommand.Output()
 				// this is so hilariously unsafe it's almost funny
 				/*if commanderr != nil {
 					panic(commanderr)
 				} */
-
-				fmt.Printf("\n%s", stdout)
+				fmt.Printf("\nStdErr: %v", commanderr)
+				fmt.Printf("\nStdOut: %s\n", stdout)
 		} //else end
 	} //for
 
