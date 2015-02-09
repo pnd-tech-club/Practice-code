@@ -26,12 +26,15 @@ func main() {
 			fmt.Println("Scanner error!")
 		}
 		usrinput := scanner.Text()
-		usrcmds := strings.Fields(usrinput)
+		usrcmds := strings.Fields(usrinput) //splits text
 		/* Begin Hackage */
 
-		switch usrinput {
+		switch usrcmds[0] {
 			case "ping":
 				fmt.Print("Pong\n")
+			case "quit":
+				fmt.Print("Be seeing you!\n")
+				loopstate = false
 			default:
 				/***** Everything following runs system commands
 				DO NOT MODIFY BELOW THIS LINE *****/
