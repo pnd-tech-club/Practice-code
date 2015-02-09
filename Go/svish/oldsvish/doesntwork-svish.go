@@ -4,12 +4,12 @@ import (
 "fmt"
 "strings"
 "os"
-//"os/exec"
+"os/exec"
 "bufio"
-"syscall"
+//"syscall"
 )
 
-/* 
+/*
 All basic functions should be hard-coded
 
 Flow: findcmd -> whichcmd -> runcmd -> [cmd]
@@ -17,7 +17,7 @@ Flow: findcmd -> whichcmd -> runcmd -> [cmd]
 
 func findcmd(usrinpt []string)(towhichcmd string, loopalive bool) {
 	loopalive = true
-	env := os.Environ()
+	//env := os.Environ()
 
 	if usrinpt[0] == "ping" {
 		fmt.Println("pong")
@@ -26,27 +26,27 @@ func findcmd(usrinpt []string)(towhichcmd string, loopalive bool) {
 		loopalive = false
 	} else {
 		app := usrinpt[0]
-		
+
 		fmt.Println(app, usrinpt[0:])
 
-		//cmd := exec.Command(app, usrinpt[0:])
-		cmd := syscall.Exec(app, usrinpt[0:], env)
+		cmd := exec.Command(app, usrinpt...)
+		//cmd := syscall.Exec(app, usrinpt[0:], env)
 		//stdout, err := cmd.Output()
-		
-		/* 
+
+		/*
 		if err != nil {
 			println(err.Error())
-			return 
+			return
 		} */
 
-		
+
 		if cmd != nil {
 			panic(cmd)
-		} 
-		
+		}
+
 
 		//print(usrinpt[0], usrinpt[0:])
-		
+
 		towhichcmd = usrinpt[0]
 	}
 
@@ -64,7 +64,7 @@ loopstate := true
 
 for loopstate == true {
 	prompt := "SVI% "
-	
+
 	fmt.Print(prompt)
 	scanerr := scanner.Scan()
 	if scanerr == false {
@@ -79,4 +79,4 @@ for loopstate == true {
 
 } //end "for"
 fmt.Println("Bye! :)")
-} 
+}
