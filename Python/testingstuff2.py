@@ -56,5 +56,6 @@ Current commands:
 		print """
 
 """ * 25
-	elif command != commands:
-		print unknown
+#Giving me issues and almost always printing the error even when a known command is given
+#	if command != commands:
+#		print unknown
