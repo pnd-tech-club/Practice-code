@@ -29,13 +29,12 @@ func main() {
 		usrcmds := strings.Fields(usrinput) //splits text
 		/* Begin Hackage */
 
-		switch usrcmds[0] {
-			case "ping":
+		if usrcmds[0] == "ping" {
 				fmt.Print("Pong\n")
-			case "quit":
+			} else if usrcmds[0] == "quit" {
 				fmt.Print("Be seeing you!\n")
 				loopstate = false
-			default:
+			} else {
 				/***** Everything following runs system commands
 				DO NOT MODIFY BELOW THIS LINE *****/
 				/* Converts to []string from string */
@@ -62,7 +61,7 @@ func main() {
 				//}
 
 				fmt.Printf("%s", stdout)
-		} //switch
+		} //else end
 	} //for
 
 
