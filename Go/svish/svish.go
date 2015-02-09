@@ -26,38 +26,41 @@ func main() {
 			fmt.Println("Scanner error!")
 		}
 		usrinput := scanner.Text()
+		usrcmds := strings.Fields(usrinput)
 		/* Begin Hackage */
 
+		switch usrinput {
+			case "ping":
+				fmt.Print("Pong\n")
+			default:
+				/***** Everything following runs system commands
+				DO NOT MODIFY BELOW THIS LINE *****/
+				/* Converts to []string from string */
+				//usrcmds := strings.SplitN(usrinput, " ", 2)
+				fmt.Printf("FULL COMMAND: %s\n", usrcmds)
 
+				binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
+				if patherr != nil {
+					panic(patherr)
+				}
 
+				fmt.Printf("BINARY: %s\n", binary)
 
-		/***** Everything following runs system commands
-		DO NOT MODIFY BELOW THIS LINE *****/
-		/* Converts to []string from string */
-		//usrcmds := strings.SplitN(usrinput, " ", 2)
-		usrcmds := strings.Fields(usrinput)
-		fmt.Printf("FULL COMMAND: %s\n", usrcmds)
+				args := usrcmds[1:len(usrcmds)]
+				fmt.Printf("ARGS: %s\n", args)
 
-		binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
-		if patherr != nil {
-			panic(patherr)
-		}
+				// combination of two things, stdout was previously usrCommand
+				// *see exec/Command's returns
+				stdout, _ := exec.Command(binary, args...).Output()
+				//stdout, commanderr := usrCommand.Output()
 
-		fmt.Printf("BINARY: %s\n", binary)
+				//if commanderr != nil {
+				//	panic(commanderr)
+				//}
 
-		args := usrcmds[1:len(usrcmds)]
-		fmt.Printf("ARGS: %s\n", args)
+				fmt.Printf("%s", stdout)
+		} //switch
+	} //for
 
-		// combination of two things, stdout was previously usrCommand
-		// *see exec/Command's returns
-		stdout, _ := exec.Command(binary, args...).Output()
-		//stdout, commanderr := usrCommand.Output()
-
-		//if commanderr != nil {
-		//	panic(commanderr)
-		//}
-
-		fmt.Printf("%s", stdout)
-		}
 
 	}
