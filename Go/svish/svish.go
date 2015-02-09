@@ -28,7 +28,8 @@ func main() {
 		usrinput := scanner.Text()
 
 		/* Converts to []string from string */
-		usrcmds := strings.SplitN(usrinput, " ", 2)
+		//usrcmds := strings.SplitN(usrinput, " ", 2)
+		usrcmds := strings.Fields(usrinput)
 		fmt.Printf("FULL COMMAND: %s\n", usrcmds)
 
 		binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
