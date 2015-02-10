@@ -9,23 +9,26 @@ global stop
 stop = 0
 #Current avilable commands(or at least ones that are possible in python)
 commands = ['echo', 'help', 'quit']
-#Currently not functioning- will define what to reset to when calling reset
+#Broken clear command supplied by Chris
 def cls():
     os.system(['clear','cls'][os.name == 'nt'])
+#Specifies what to reset variables to after calling reset
 def reset():
 	command = ""
 	stop = "0"
+	repeat = ""
 def commands():
 	global quit
 	global help
 	global echo
-def echo_split(command):
-	global echor
-	echor = command.split(' ')
-	return repeat
+#Can't seem to understand this or get it to work :P Will eventually be implemented
+#def echo_split(command):
+#	global echor
+#	echor = command.split(' ')
+#	return repeat
 p = '>'
 global repeat
-repeat = ""
+repeat = "BROKEN!"
 global unknown
 unknown = "Unknown command: type \"help\" for help."
 print "Welcome to my testing bay!"
@@ -39,10 +42,7 @@ if command == 'quit':
 #Needed in order to keep the process running
 while 0 == 0:
 	while stop != 1:
-
-		if command == ['quit']:
-			quit()
-		elif command == 'help':
+		if command == 'help':
 			print """
 This program doesn't have much use at the moment, but will hopefully have some more work and contributors in the near future.
 Current commands:
@@ -51,16 +51,17 @@ Current commands:
 	* echo- completely useless other than for kicks and giggles
 	* clear- clears the screen
 """
+		elif command == 'quit':
+			quit()	
+		elif 'echo ' in command:
+			print repeat
+		elif command == 'clear':
+			print cls
+#Giving me issues and almost always printing the error even when a known command is given
+#Issue has now been fixed, I was being an idiot
+		else:
+			print unknown
 		stop = stop + 1
-	command = raw_input(p)
+		command = raw_input(p)
 	stop = 0
 	reset()
-	if command == 'quit':
-		quit()	
-	elif 'echo ' in command:
-		print repeat
-	elif command == 'clear':
-		cls
-#Giving me issues and almost always printing the error even when a known command is given
-#	if command != commands:
-#		print unknown
