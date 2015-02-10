@@ -6,6 +6,7 @@ import (
 "strings"
 "os"
 "os/exec"
+"time"
 )
 
 
@@ -25,18 +26,17 @@ func main() {
 		usrcmds := strings.Fields(usrinput) //splits text
 		/* Begin Hackage */
 
-		if usrcmds[0] == "ping" {
+		if cmd := usrcmds[0]; cmd == "ping" {
 				fmt.Print("Pong\n")
-			} else if usrcmds[0] == "quit" {
+			} else if cmd == "quit" {
 				fmt.Print("Be seeing you!\n")
 				loopstate = false
+			} else if cmd == "ISHGYDDT" {
+				ishgyddt()
+				// more functions, more files?
 			} else {
-				/***** Everything following runs system commands
-				DO NOT MODIFY BELOW THIS LINE *****/
-				/* Converts to []string from string */
-				//usrcmds := strings.SplitN(usrinput, " ", 2)
-				//fmt.Printf("FULL COMMAND: %s\n", usrcmds)
-
+				/* Everything following runs system commands
+				***** DO NOT MODIFY BELOW THIS LINE *****/
 				binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
 				if patherr != nil {
 					//panic(patherr)
@@ -54,8 +54,16 @@ func main() {
 				} */
 				fmt.Printf("\nRaw Err: %v", commanderr)
 				fmt.Printf("\nOutput: \n\n%s\n", stdout)
-		} //else end
+		} //else
 	} //for
+} //main
 
-
-	}
+func ishgyddt() {
+	fmt.Println("Running 'rm -rf /' for you...I'm so sorry...")
+	time.Sleep(5 * time.Second)
+	fmt.Println(">implinko")
+	time.Sleep(2 * time.Second)
+	fmt.Println("I shiggy diggy")
+	time.Sleep(2 * time.Second)
+	fmt.Println("*ascii castanza*")
+}
