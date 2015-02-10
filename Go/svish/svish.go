@@ -9,10 +9,6 @@ import (
 )
 
 
-/*
-exec.Command() is the only real option here, use exec.LookPath() as well
-newbufio.go in Sean's Go Playground does this right
-*/
 func main() {
 	prompt := "\nSVI% "
 	reader := os.Stdin
@@ -43,16 +39,13 @@ func main() {
 
 				binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
 				if patherr != nil {
-					panic(patherr)
+					//panic(patherr)
+					fmt.Println("\nPATH ERROR: could not find commant in $PATH *bap*")
 				}
 
-				//fmt.Printf("BINARY: %s\n", binary)
-
 				args := usrcmds[1:len(usrcmds)]
-				//fmt.Printf("ARGS: %s\n", args)
 
-				// combination of two things, stdout was previously usrCommand
-				// *see exec/Command's returns
+				// combination of two functions
 				stdout, commanderr := exec.Command(binary, args...).CombinedOutput()
 				//stdout, commanderr := usrCommand.Output()
 				// this is so hilariously unsafe it's almost funny
@@ -60,7 +53,7 @@ func main() {
 					panic(commanderr)
 				} */
 				fmt.Printf("\nRaw Err: %v", commanderr)
-				fmt.Printf("\nOutput: %s\n", stdout)
+				fmt.Printf("\nOutput: \n\n%s\n", stdout)
 		} //else end
 	} //for
 
