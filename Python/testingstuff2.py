@@ -10,6 +10,8 @@ stop = 0
 #Current avilable commands(or at least ones that are possible in python)
 commands = ['echo', 'help', 'quit']
 #Currently not functioning- will define what to reset to when calling reset
+def cls():
+    os.system(['clear','cls'][os.name == 'nt'])
 def reset():
 	command = ""
 	stop = "0"
@@ -17,7 +19,13 @@ def commands():
 	global quit
 	global help
 	global echo
+def echo_split(command):
+	global echor
+	echor = command.split(' ')
+	return repeat
 p = '>'
+global repeat
+repeat = ""
 global unknown
 unknown = "Unknown command: type \"help\" for help."
 print "Welcome to my testing bay!"
@@ -43,7 +51,6 @@ Current commands:
 	* echo- completely useless other than for kicks and giggles
 	* clear- clears the screen
 """
-	
 		stop = stop + 1
 	command = raw_input(p)
 	stop = 0
@@ -51,11 +58,9 @@ Current commands:
 	if command == 'quit':
 		quit()	
 	elif 'echo ' in command:
-		print command
+		print repeat
 	elif command == 'clear':
-		print """
-
-""" * 25
+		cls
 #Giving me issues and almost always printing the error even when a known command is given
 #	if command != commands:
 #		print unknown
