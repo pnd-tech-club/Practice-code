@@ -13,8 +13,10 @@ func main() {
 	prompt := "\nSVI% "
 	reader := os.Stdin
 	scanner := bufio.NewScanner(reader)
+	svipath := "./svicmds"
 
 	loopstate := true
+	fmt.Printf("Your svipath is: %s\n\n", svipath)
 	for loopstate != false {
 		fmt.Print(prompt)
 		scanerr := scanner.Scan()
@@ -30,30 +32,29 @@ func main() {
 			} else if cmd == "quit" {
 				fmt.Print("Be seeing you!\n")
 				loopstate = false
-			} else if cmd == "ISHYGDDT" {
-				/* find a way to mess with $PATH and make a svicmds directory */
-				/* http://golang.org/pkg/path/ is worth looking into */
-				ishout, _ := exec.Command("./subcmds/ishygddt", "").CombinedOutput()
-				fmt.Printf("\n\n%s\n", ishout)
-				// more functions, more files?
 			} else {
 				/* Everything following runs system commands
 				***** DO NOT MODIFY BELOW THIS LINE *****/
 				binary, patherr := exec.LookPath(usrcmds[0]) // get path for program (`/bin/ls` for example)
 				if patherr != nil {
 					//panic(patherr)
-					fmt.Println("\nPATH ERROR: could not find commant in $PATH *bap*")
-				}
+					/* http://golang.org/pkg/path/ is worth looking into */
+					altcmd := svipath + "/" + cmd
+					altout, alterr := exec.Command(altcmd, "").CombinedOutput()
+					fmt.Printf("\nRaw Err: %v", alterr)
+					fmt.Printf("\nOutput: \n\n%s\n", altout)
+				} else {
 
-				args := usrcmds[1:len(usrcmds)]
+					args := usrcmds[1:len(usrcmds)]
 
-				// combination of two functions
-				stdout, commanderr := exec.Command(binary, args...).CombinedOutput()
-				/*if commanderr != nil {
-					panic(commanderr)
-				} */
-				fmt.Printf("\nRaw Err: %v", commanderr)
-				fmt.Printf("\nOutput: \n\n%s\n", stdout)
-		} //else
-	} //for
+					// combination of two functions
+					stdout, commanderr := exec.Command(binary, args...).CombinedOutput()
+					/*if commanderr != nil {
+						panic(commanderr)
+					} */
+					fmt.Printf("\nRaw Err: %v", commanderr)
+					fmt.Printf("\nOutput: \n\n%s\n", stdout)
+				}//internal else
+			} //else
+		} //for
 } //main
