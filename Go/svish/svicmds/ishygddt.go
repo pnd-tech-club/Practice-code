@@ -3,6 +3,7 @@ package main
 // no time because not in the main code...for obvious reasons
 //import "time"
 import "fmt"
+import "svi"
 
 func main() {
 	fmt.Println("Running 'rm -rf /' for you...I'm so sorry...")
@@ -11,6 +12,8 @@ func main() {
 	//time.Sleep(2 * time.Second)
 	fmt.Println("I shiggy diggy")
 	//time.Sleep(2 * time.Second)
-	fmt.Println("*ascii castanza*")
+	castanza, _ := svi.Filereader("castanza.txt")
+	for n := 0; n < len(castanza)-1; n +=1 {
+		fmt.Println(castanza[n])
+	}
 }
-
