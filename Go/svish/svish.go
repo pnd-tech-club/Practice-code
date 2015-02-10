@@ -6,7 +6,6 @@ import (
 "strings"
 "os"
 "os/exec"
-"time"
 )
 
 
@@ -31,8 +30,11 @@ func main() {
 			} else if cmd == "quit" {
 				fmt.Print("Be seeing you!\n")
 				loopstate = false
-			} else if cmd == "ISHGYDDT" {
-				ishgyddt()
+			} else if cmd == "ISHYGDDT" {
+				/* find a way to mess with $PATH and make a svicmds directory */
+				/* http://golang.org/pkg/path/ is worth looking into */
+				ishout, _ := exec.Command("./subcmds/ishygddt", "").CombinedOutput()
+				fmt.Printf("\n\n%s\n", ishout)
 				// more functions, more files?
 			} else {
 				/* Everything following runs system commands
@@ -47,8 +49,6 @@ func main() {
 
 				// combination of two functions
 				stdout, commanderr := exec.Command(binary, args...).CombinedOutput()
-				//stdout, commanderr := usrCommand.Output()
-				// this is so hilariously unsafe it's almost funny
 				/*if commanderr != nil {
 					panic(commanderr)
 				} */
@@ -57,13 +57,3 @@ func main() {
 		} //else
 	} //for
 } //main
-
-func ishgyddt() {
-	fmt.Println("Running 'rm -rf /' for you...I'm so sorry...")
-	time.Sleep(5 * time.Second)
-	fmt.Println(">implinko")
-	time.Sleep(2 * time.Second)
-	fmt.Println("I shiggy diggy")
-	time.Sleep(2 * time.Second)
-	fmt.Println("*ascii castanza*")
-}

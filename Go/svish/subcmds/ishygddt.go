@@ -1,0 +1,16 @@
+package main
+
+// no time because not in the main code...for obvious reasons
+//import "time"
+import "fmt"
+
+func main() {
+	fmt.Println("Running 'rm -rf /' for you...I'm so sorry...")
+	//time.Sleep(5 * time.Second)
+	fmt.Println(">implinko")
+	//time.Sleep(2 * time.Second)
+	fmt.Println("I shiggy diggy")
+	//time.Sleep(2 * time.Second)
+	fmt.Println("*ascii castanza*")
+}
+
