@@ -1,4 +1,6 @@
-#Mainly messnig around with numbers and math
+# Python 2.x
+# Mainly messing around with numbers and math
+
 stop = 0
 stop = stop + 1
 
