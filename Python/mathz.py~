@@ -1,5 +1,3 @@
-#Written in Python 2.something.or.other
-#This is so dumb lol
 #Setting up the variables via user prompt
 print "What do you want to math?"
 num_1 = int(input())

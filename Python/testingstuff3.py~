@@ -1,4 +1,3 @@
-#Written in Python 2.something.or.other by Matthew Knecht
 #Mainly messing around with numbers and math
 stop = 0
 stop = stop + 1
