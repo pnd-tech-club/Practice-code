@@ -10,10 +10,10 @@ def count():
 	global num
 
 while stop != num:
-	while num > 1:
-		num = num - 1
+	while num > 0:
 		minus = num - 1
 		print "%r bottles of beer on the wall, %r bottles of beer.  Take one down, pass it around, %r bottles of beer on the wall." % (num, num, minus)
+		num = num - 1
 	if num == 0:
 		quit()
 	elif num < 0:
