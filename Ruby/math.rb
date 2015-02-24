@@ -1,7 +1,7 @@
 #This is a calculator that takes two or one number from the user, and performs a specified operation on them. The if statement a the begining of each one tells what that operation does.
 a = 1
 while a == 1
-print "Please enter operation. "
+print "Please enter a valid operation. "
 	op = gets.chomp
 	if op == "multiply"
 		print "What is your first number? "
@@ -70,11 +70,34 @@ print "Please enter operation. "
 		tnum = Float(gets.chomp)
 		tnum2 = Math.tan(tnum)
 		puts "#{tnum2}"
+        elsif op == "root4"
+		print "What number do you want the fourth root of? "
+		r4num = Float(gets.chomp)
+		r4num2 = Math.sqrt(r4num)
+		r4num3 = Math.sqrt(r4num2)
+		puts "#{r4num3}"
+	elsif op == "root3"
+		print "What number do you want the third root of? "
+		r3num = Float(gets.chomp)
+		r3num2 = r3num ** 1/3
+		puts "#{r3num2}"
+	elsif op == "ln"
+		print "What number do you want the natural log of? "
+		l2num = Float(gets.chomp)
+		l2num2 = Math.log(l2num)
+		puts "#{l2num2}"
+	elsif op == "clog"
+		print "What is your X? "
+		clnum = Float(gets.chomp)
+		print "What is your base? "
+		clnum2 = Float(gets.chomp)
+		clnum3 = Math.log(clnum, clnum2)
+		puts "#{clnum3}"
     elsif op == "quit"
         a = 0
     elsif op == "help"
-		puts "The valid operations are multiply, add, subtract, divide, root, log10, log2, sin, cos, tan, and remain. Use quit to quit.  "
+		puts "The valid operations are multiply, add, subtract, divide, root, log10, log2, sin, cos, tan, remain, root4, root3, ln, and clog(custom log). Use quit to quit.  "
 
-	else puts "The valid operations are multiply, add, subtract, divide, root, log10, log2, sin, cos, tan, and remain. Use quit to quit. "
+	else puts "The valid operations are multiply, add, subtract, divide, root, log10, log2, sin, cos, tan, remain, root4, root3, ln, and clog(custom log). Use quit to quit. "
 end
 end
