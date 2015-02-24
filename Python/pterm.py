@@ -1,4 +1,4 @@
-#This is just a little terminal-esquie thing I decided to throw together- not really all that functional yet
+#This is just a mini terminal thing I decided to throw together- not really all that functional yet
 #Written in Python 2.something.or.other
 #Developed by Matthew Knecht
 #Contributors:
@@ -12,7 +12,7 @@ stop = 0
 commands = ['echo', 'help', 'quit']
 #Broken clear command supplied by Chris
 def cls():
-    os.system(['clear','cls'][os.name == 'nt'])
+	os.system(['clear','cls'][os.name == 'nt'])
 #Specifies what to reset variables to after calling reset
 def reset():
 	command = ""
@@ -22,6 +22,7 @@ def commands():
 	global quit
 	global help
 	global echo
+	global clear
 #Can't seem to understand this or get it to work :P Will eventually be implemented
 #def echo_split(command):
 #	global echor
@@ -29,15 +30,14 @@ def commands():
 #	return repeat
 p = '>'
 global repeat
-repeat = "BROKEN!"
 global unknown
 unknown = "Unknown command: type \"help\" for help."
 print "Welcome to my testing bay!"
 print "Get a list of commands by typing \"help\"."
 #Defines variables for use all over the code
 global command
-
 command = raw_input(p)
+repeat = command
 if command == 'quit':
 	quit()
 #Needed in order to keep the process running
@@ -57,12 +57,14 @@ Current commands:
 		elif 'echo ' in command:
 			print repeat
 		elif command == 'clear':
-			print cls
+			print repeat
 #Giving me issues and almost always printing the error even when a known command is given
 #Issue has now been fixed, I was being an idiot
 		else:
 			print unknown
 		stop = stop + 1
 		command = raw_input(p)
-	stop = 0
-	reset()
+		stop = 0
+		repeat = ""
+		repeat = command
+		reset()
