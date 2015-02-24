@@ -76,11 +76,11 @@ print "Please enter a valid operation. "
 		r4num2 = Math.sqrt(r4num)
 		r4num3 = Math.sqrt(r4num2)
 		puts "#{r4num3}"
-	elsif op == "root3"
+	elsif op == "croot"
 		print "What number do you want the third root of? "
 		r3num = Float(gets.chomp)
 		r3num2 = r3num ** 1/3
-		puts "#{r3num2}"
+		print "#{r3num2}"
 	elsif op == "ln"
 		print "What number do you want the natural log of? "
 		l2num = Float(gets.chomp)
