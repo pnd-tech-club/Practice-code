@@ -1,4 +1,6 @@
 #This is a calculator that takes two or one number from the user, and performs a specified operation on them. The if statement a the begining of each one tells what that operation does.
+#Developed by DOug Guzman
+#Contributers - Sean Hinchee for the loop, Matthew Knecht for a loop concept not implmented
 a = 1
 while a == 1
 print "Please enter a valid operation. "
@@ -40,11 +42,11 @@ print "Please enter a valid operation. "
 		qnum3 = Math.sqrt(qnum2)
 		puts "#{qnum3}"
 	elsif op == "remain"
-	        print "What is your divisor? "
-	        rnum1 = Float(gets.chomp)
-	        print "What is your second dividen? "
-	        rnum2 = Float(gets.chomp)
-	        puts "#{rnum1 % rnum2}"
+        print "What is your divisor? "
+        rnum1 = Float(gets.chomp)
+        print "What is your second dividen? "
+        rnum2 = Float(gets.chomp)
+        puts "#{rnum1 % rnum2}"
 	elsif op ==  "log10"
 		print "What number do you want the log10 of? "
 		lnum = Float(gets.chomp)
@@ -76,7 +78,7 @@ print "Please enter a valid operation. "
 		r4num2 = Math.sqrt(r4num)
 		r4num3 = Math.sqrt(r4num2)
 		puts "#{r4num3}"
-	elsif op == "croot"
+	elsif op == "root3""
 		print "What number do you want the third root of? "
 		r3num = Float(gets.chomp)
 		r3num2 = r3num ** 1/3
