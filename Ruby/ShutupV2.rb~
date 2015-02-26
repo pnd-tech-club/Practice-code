@@ -1,0 +1,5 @@
+a = 0
+while a < 1
+	exec "say be quiet"
+	sleep(0.5)
+end
