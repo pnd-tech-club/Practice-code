@@ -7,8 +7,6 @@ $p2 = "Second number? "
 $n1 = Float(0)
 $n2 = Float(0)
 $n3 = Float(0)
-$n4 = Float(0)
-$op2 = "0"
 $op3 = 0
 $a = 1
 while $a == 1
@@ -76,37 +74,68 @@ print "Please enter your operation. "
 		$a = 0
 	elsif $op == "help"
 		puts "The valid operations are as follows. "
-		puts "add"
-		puts "subtract"
-		puts "multiply"
-		puts "divide"
-		puts "exponent"
-		puts "root"
-	elsif $op == "^[[A"
-		if $op2 == "add"
-			$op == "add"
-		elsif $op2 == "subtract"
-			$op == "subtract"
-		elsif $op2 == "multiply"
-			$op == "multiply"
-		elsif $op2== "divide"
-			$op == "divide"
-		elsif $op2 == "exponent"
-			$op == "exponent"
-		elsif $op2 == "root"
-			$op == "root"
-		else
-			$op == "start"
-		end
+		puts "-add"
+		puts "-subtract"
+		puts "-multiply"
+		puts "-divide"
+		puts "-exponent"
+		puts "-root"
+	elsif $op == "purge"
+		$n1 = 0
+		$n2 = 0
+		$n3 = 0
+		$op3 = 0
+		$op = "start"
+		puts "Purge successful"
 	elsif $op == "answer"
-		print "Please enter your operation again. "
+		print "Please enter another operation. "
 		$op3 = gets.chomp
 		if $op3 == "add"
 			print "#{$n3} + __ "
 			$n1 = Float(gets.chomp)
-			$n4 =  $n3 + $n1
-			puts "#{$n4}"
-	
+			$n3 =  $n3 + $n1
+			puts "#{$n3}"
+		elsif $op3 == "subtract"
+			print "#{$n3} - __ "
+			$n1 = Float(gets.chomp)
+			$n3 = $n3 - $n1
+			puts "#{$n3}"
+		elsif $op3 == "multiply"
+			print "#{$n3} * __ "
+			$n1 = Float(gets.chomp)
+			$n3 = $n3 * $n1
+			puts "#{$n3}"	
+		elsif $op3 == "divide"
+			print "#{$n3} / __ "
+			$n1 = Float(gets.chomp)
+			$n3 = $n3 / $n1
+			puts "#{$n3}"
+		elsif $op3 == "exponent"
+			print "#{$n3} ** __ "
+			$n1 = Float(gets.chomp)
+			$n3 = $n3 ** $n1
+			puts "#{$n3}"
+		elsif $op3 == "root"
+			print "sqrt(#{$n3})"
+			$n3 = Math.sqrt($n3)
+			puts "#{$n3}"
+		elsif $op3 == "quit"
+			$a = 0
+		elsif $op3 == "help"
+			puts "The valid operations are as follows. "
+			puts "-add"
+			puts "-subtract"
+			puts "-multiply"
+			puts "-divide"
+			puts "-exponent"
+			puts "-root"
+		elsif $op3 == "purge"
+			$n1 = 0
+			$n2 = 0
+			$n3 = 0
+			$op3 = 0
+			$op = "start"
+			puts "Purge successful"
 end
 end
 end
