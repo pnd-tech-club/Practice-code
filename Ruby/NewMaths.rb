@@ -32,6 +32,7 @@ puts "-tan"
 puts "-answer"
 puts "-purge"
 puts "-read"
+puts "-geometry"
 while $a == 1
 #operation variable
 $op == "start"
@@ -134,6 +135,7 @@ print "Please enter your operation. "
 		puts "-answer"
 		puts "-purge"
 		puts "-read"
+		puts "-geometry"
 	elsif $op == "purge"
 		$n1 = 0
 		$n2 = 0
@@ -162,6 +164,48 @@ print "Please enter your operation. "
 				puts "-Area of a cube (lwh)"
 			end
 		end
+	elsif $op == "physics"
+		$c = 1
+		while $c == 1
+			print "What equation would you like to do? "
+			$op5 == gets.chomp
+			if $op5 == "Velocity"
+				puts "V = d/t "
+				print "#{$p1}"
+				$n1 = Float(gets.chomp)
+				puts "V = #{$n1}/t"
+				print "#{$p2}"
+				$n2 = Float(gets.chomp)
+				$n3 = $n1 / $n2
+				puts "#{$n3}"
+			elsif $op5 == "Acceleration"
+				puts "A = v/t "
+				print "#{$p1}"
+				$n1 = Float(gets.chomp)
+				puts "A = #{$n1}/t"
+				print "#{$p2}"
+				$n2 = Float(gets.chomp)
+				$n3 = $n1 / $n2
+				puts "#{$n3}"
+			elsif $op5 == "Final Velocity"
+				puts "v1 = v2 + aΔt)"
+				print "#{$p1}"
+				$n1 = Float(gets.chomp)
+				puts "v1 = #{$n1} + aΔt"
+				print "#{$p2}"
+				$n2 = Float(gets.chomp)
+				puts "v1 = #{$n1} + #{$n2}Δt"
+				print "Thrid number? "
+				$n3 = Float(gets.chomp)
+				$n3 = $n1 + ($n2 - $n3)
+			elsif $op5 == "quit"
+				$c = 0
+			end
+		end
+#[3/4/15, 9:10:10 AM] Sean Hinchee: ∆x/∆y ≈ (x1-x2)/(y1-y2)
+#[3/4/15, 9:10:32 AM] Sean Hinchee: ∆t ≈ t2-t1
+			elsif $op5 == "quit"
+				$c = 0
 	elsif $op == "troll"
 		while 0 == 0
 			print "troll troll troll troll "
