@@ -12,11 +12,26 @@ $n2 = Float(0)
 $n3 = Float(0)
 #operation for Answer
 $op3 = 0
+#operation for geometry
+$op4 = 0
 #Variable for read
 $read = 0
 #Loop variables
 $a = 1
-$b = 1
+$b = 0
+puts "The valid operations are as follows. "
+puts "-add"
+puts "-subtract"
+puts "-multiply"
+puts "-divide"
+puts "-exponent"
+puts "-root"
+puts "-sin"
+puts "-cos"
+puts "-tan"
+puts "-answer"
+puts "-purge"
+puts "-read"
 while $a == 1
 #operation variable
 $op == "start"
@@ -88,6 +103,21 @@ print "Please enter your operation. "
 		$n1 = Flaot(gets.chomp)
 		$n3 = Math.log($n1)
 		puts "#{$n3}"
+	elsif $op == "sin"
+		print "#{$p1}"
+		$n1 = Float(gets.chomp)
+		$n3 = Math.sin($n1)
+		puts "#{$n3}"
+	elsif $op == "tan"
+		print "#{$p1}"
+		$n1 = Float(gets.chomp)
+		$n3 = Math.tan($n1)
+		puts "#{$n3}"
+	elsif $op == "cos"
+		print "#{$p1}"
+		$n1 = Float(gets.chomp)
+		$n3 = Math.cos($n1)
+		puts "#{$n3}"
 	elsif $op == "quit"
 		$a = 0
 	elsif $op == "help"
@@ -98,6 +128,9 @@ print "Please enter your operation. "
 		puts "-divide"
 		puts "-exponent"
 		puts "-root"
+		puts "-sin"
+		puts "-cos"
+		puts "-tan"
 		puts "-answer"
 		puts "-purge"
 		puts "-read"
@@ -108,6 +141,36 @@ print "Please enter your operation. "
 		$op3 = 0
 		$op = "start"
 		puts "Purge successful"
+	elsif $op == "geometry"
+		$b = 1
+		while $b == 1
+			print "What equation will you do? "
+			$op4 = gets.chomp
+			if $op4 == "lwh"
+				print "Length? "
+				$n1 = Float(gets.chomp)
+				print "Width? "
+				$n2 = Float(gets.chomp)
+				print "Height? "
+				$n3 = Float(gets.chomp)
+				$n3 = $n1 * $n2 * $n3
+				puts "#{$n3}"
+			elsif $op4 == "polygon area"
+				puts "1/2 __ sin(360/__) __ ** 2 "
+				print "#{$p1}"
+				$n1 = Float(gets.chomp)
+				puts "1/2 #{$n1} sin(360/#{$n1}) __ ** 2 "
+				print "#{$p2}"
+				$n2 = Float(gets.chomp)
+				$n3 = 0.5 * $n1 * Math.sin(360 / $n1) * $n2 ** 2
+				puts "#{$n3}"
+			elsif $op4 == "quit"
+				$b = 0
+			elsif $op4 == "help"
+				puts "The valid geometry functions are "
+				puts "-Area of a cube (lwh)"
+			end
+		end
 	elsif $op == "troll"
 		while 0 == 0
 			print "troll troll troll troll "
@@ -145,6 +208,21 @@ print "Please enter your operation. "
 			print "sqrt(#{$n3})"
 			$n3 = Math.sqrt($n3)
 			puts "#{$n3}"
+		elsif $op3 == "sin"
+			print "#{$p1}"
+			$n1 = Float(gets.chomp)
+			$n3 = Math.sin($n1)
+			puts "#{$n3}"
+		elsif $op3 == "cos"
+			print "#{$p1}"
+			$n1 = Float(gets.chomp)
+			$n3 = Math.cos($n1)
+			puts "#{$n3}"
+		elsif $op3 == "tan"
+			print "#{$p1}"
+			$n1 = Float(gets.chomp)
+			$n3 = Math.cos($n1)
+			puts "#{$n3}"
 		elsif $op3 == "quit"
 			$a = 0
 		elsif $op3 == "help"
@@ -155,6 +233,9 @@ print "Please enter your operation. "
 			puts "-divide"
 			puts "-exponent"
 			puts "-root"
+			puts "-sin"
+			puts "-cos"
+			puts "-tan"
 			puts "-purge"
 			puts "-read"
 		elsif $op3 == "purge"
@@ -174,24 +255,14 @@ print "Please enter your operation. "
 				puts "#{$n2} "
 			elsif $read == "n3"
 				puts "#{$n3} "
-	elsif $op == "geometry"
-		while $b == 1
-			$gop = "start"
-			$p3 = "Third number? "
-			$l = 0
-			$w = 0
-			$h = 0
-			print "What equation do you want to perform?"
-			if $gop == "lwh"
-				print "#{$p1}"
-				$l = Float(gets.chomp)
-				print "#{$p2}"
-				$w = Float(gets.chomp)
-				print "#{$p3}"
-				$h = Float(gets.chomp)
-				$n3 = $l * $w * $h
-				puts "#{$n3}"
-		end
+		elsif $op == "set"
+			print "Which variable do you want to set? "
+			$set == gets.chomp
+			if $set == "n1"
+				$n1 = Float(gets.chomp)
+			elsif $set == "n2"
+				$n2 = Float(gets.chomp)
+			elsif $set == "n3"
 end
 end
 end
