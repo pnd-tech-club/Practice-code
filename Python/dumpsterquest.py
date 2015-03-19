@@ -190,24 +190,30 @@ while stop != 1:
 			enemy_info = "An %r suddenly appears!." % enemy_type
 			print enemy_info
 			enemy_set = 1
-		act_f = int(raw_input(fight_p + "\n"))
-		if act_f == 1:
+		act_f = raw_input(fight_p + "\n")
+		if act_f == "1":
 			enemy_hp = enemy_hp - damage
 			print "You dealt %r damage to the %r!" % (damage, enemy_type)
-		elif act_f == 2:
+		elif act_f == "2":
 			print inventory
 #		elif act_f == 3:
 #			dodge_dam = hp - enemy_dam * random.randint(0,1)
 #			hp = hp - dodge_dam
 #			if dodge_dam == 0:
 #				print "You dodged the attack!"
+		elif act_f == "4":
+			run_success = random.randint(0, 3)
+			if run_success == 1:
+				encounter_time = random.randint(5, 7)
+				enemy_hp = 0
+				print "You ran away!"
 		else:
 			print "You can't do that!"
 		if enemy_hp > 0: #and dodge_dam != 0:
 			hp = hp - enemy_dam + defe
 			print "The %r dealt %r damage to you!" % (enemy_type, enemy_dam)
-		if enemy_hp <= 0:
-			print "You killed the %r!" % enemy_type
+		if enemy_hp <= 0 and act_f != "4":
+			print "You killed the" + enemy_type +"!"
 			encounter_time = random.randint(5, 8)
 		if hp <= 0:
 			print "You have died!  Try again!"
