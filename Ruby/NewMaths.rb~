@@ -137,12 +137,25 @@ print "Please enter your operation. "
 		puts "-read"
 		puts "-geometry"
 	elsif $op == "purge"
-		$n1 = 0
-		$n2 = 0
-		$n3 = 0
-		$op3 = 0
-		$op = "start"
+		print "What variable to you want to purge? "
+		$pr = gets.chomp
+		if $pr == "n1"
+			$n1 = 0
+			puts "Purge successful"
+		elsif $pr == "n2"
+			$n2 = 0
+			"Purge successful"
+		elsif $pr == "n3"
+			$n3 = 0
+			"Purge successful"
+		elsif $pr == "all"
+			$n1 = 0
+			$n2 = 0
+			$n3 = 0
+			$op3 = 0
+			$op = "start"
 		puts "Purge successful"
+		end
 	elsif $op == "geometry"
 		$b = 1
 		while $b == 1
@@ -202,6 +215,7 @@ print "Please enter your operation. "
 				$c = 0
 			end
 		end
+#Notes for me to use in equations
 #[3/4/15, 9:10:10 AM] Sean Hinchee: ∆x/∆y ≈ (x1-x2)/(y1-y2)
 #[3/4/15, 9:10:32 AM] Sean Hinchee: ∆t ≈ t2-t1
 			elsif $op5 == "quit"
