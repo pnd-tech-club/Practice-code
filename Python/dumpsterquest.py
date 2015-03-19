@@ -1,5 +1,46 @@
-#A reworked version of quest written by Matthew Knecht in Python 2.7
+#Credits:
+#Written by Matthew Knecht
+#Written in Python 2.7
+
+#CHANGELOG
+#Version 0.0.1: 
+# -Basic ideas and laying out of variables
+
+#Version 0.0.2:
+# -Laying out rooms and plotline
+
+#Version 0.0.3:
+# -Bug fixing
+# -Added additional commands
+# -Added more rooms
+
+#Version 0.0.4:
+# -More bug fixing
+
+#Version 0.0.5:
+# -Added some more basic ideas
+# -Added more commands
+
+#Version 0.0.6:
+# -Added basic (aka broken) layout for enemy encounters
+# -Fixed some little bugs pertaining to walking through walls
+
+#Version 0.0.7
+# -Added more to encounter system- currently still very buggy
+
+#Version 0.1.0 (Major Update!)
+# -Added lots to the encounter system
+# -Removed some code for a dodge mechanic due to it causing bugs (code can be found nearly unmodified, just commented out)
+# -FIXED ALL KNOWN BUGS, EXPLOITS, AND ISSUES (yay)
+
+#Version 0.1.1
+# -Fixed/added in the "run away" mechanic during encounters
+
+#Version 0.1.2 (aka "The Remembering")
+# -Added a changelog
+
 import random
+current_version = "v0.1.2"
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = sharpened stick, 3 = rusty sword, 4 = dull sword, 5 = sharp spear, 6 = polished axe sword, 7 = The Blade of Trash
@@ -113,7 +154,7 @@ while stop != 1:
 	elif act == "info":
 		print "Damage: %r\nHealth:%r\nDefense:%r" % (damage, hp, defe)
 	elif act == "credits":
-		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in V0.0.7.  The story of the game revolves around a player who has lost his memory and has to find his way back to his dumpster.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!"
+		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in %r  The story of the game revolves around a player who has lost his memory and has to find his way back to his dumpster.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!" % current_version
 	if act == "help":
 		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
 	
