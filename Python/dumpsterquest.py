@@ -3,8 +3,14 @@ import random
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = sharpened stick, 3 = rusty sword, 4 = dull sword, 5 = sharp spear, 6 = polished axe sword, 7 = The Blade of Trash
+global dodged
+dodged = 0
+global dodge_dam
+dodge_dam = 1
 global damage
-damage = 1
+damage = 3
+global max_hp
+max_hp = 20
 global torch_true
 torch_true = 0
 global rock_true
@@ -15,10 +21,30 @@ global inventory
 inventory = ""
 global stop
 stop = 0
+global enemy_set
+enemy_set = 0
 global time
 time = 0
+global encounter_time
+encounter_time = 5 #Eventually implement something like encounter_time = random.randint(1, 100) and something like if encounter_time <= 10:      enemy ecnounter or something
 global skip
 skip = 0
+global enemy_hp
+enemy_hp = 1
+global enemy_dam
+enemy_dam = 0
+global enemy_dodge
+enemy_dodge = 0
+global enemy_info
+enemy_info = ""
+global enemy_type
+global fight_p
+fight_p = enemy_info + "What do you want to do?\n 1: Attack\n2: Items\n3: Magic\n4: Run Away"
+global f_act
+global hp
+hp = 20
+global defe
+defe = 1
 global encounter
 encounter = 0
 global x
@@ -75,8 +101,17 @@ while stop != 1:
 			skip = 0
 	elif act == "OP420":
 		weapon = 7
+	elif act == "etime":
+		print encounter
+		print encounter_time
+	elif act == "wait":
+			hp += random.randint(0, 1)
+	elif act == "tp":
+		x = int(raw_input('> '))
+		y = int(raw_input('> '))
+		torch_true = 1
 	elif act == "info":
-		print "Damage: %r\nHealth:\nDefense:" % (damage)
+		print "Damage: %r\nHealth:%r\nDefense:%r" % (damage, hp, defe)
 	elif act == "credits":
 		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in V0.0.7.  The story of the game revolves around a player who has lost his memory and has to find his way back to his dumpster.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!"
 	if act == "help":
@@ -109,6 +144,7 @@ while stop != 1:
 		print roominfo
 	elif x == 2 and y == 2:
 		encounter = 1
+		enemy_type = "wolf"
 		roominfo = "There is a swiftly flowing stream here.  To the east is a path to the forest.  You think you see a small cottage far to the north."
 		print roominfo
 #This is used to undo movement into an unexisting room
@@ -121,12 +157,14 @@ while stop != 1:
 			x += 1
 		elif act == "e":
 			x -= 1
+	if encounter == 1:
+		encounter_time -= 1
 	if weapon == 0:
-		damage = 1
-	elif weapon == 1:
 		damage = 3
+	elif weapon == 1:
+		damage = 5
 	elif weapon == 2:
-		damage = 6
+		damage = 8
 	elif weapon == 3:
 		damage = 10
 	elif weapon == 4:
@@ -141,5 +179,39 @@ while stop != 1:
 	stop = 1
 	act = ""
 	act = raw_input('> ')
-
 	stop = 0
+	while encounter_time == 0:
+		stop = 1
+		while enemy_set != 1:
+			if enemy_type == "wolf":
+				enemy_hp = 15
+				enemy_dam = random.randint(1, 3)
+				enemy_dodge = 0
+			enemy_info = "An %r suddenly appears!." % enemy_type
+			print enemy_info
+			enemy_set = 1
+		act_f = int(raw_input(fight_p + "\n"))
+		if act_f == 1:
+			enemy_hp = enemy_hp - damage
+			print "You dealt %r damage to the %r!" % (damage, enemy_type)
+		elif act_f == 2:
+			print inventory
+#		elif act_f == 3:
+#			dodge_dam = hp - enemy_dam * random.randint(0,1)
+#			hp = hp - dodge_dam
+#			if dodge_dam == 0:
+#				print "You dodged the attack!"
+		else:
+			print "You can't do that!"
+		if enemy_hp > 0: #and dodge_dam != 0:
+			hp = hp - enemy_dam + defe
+			print "The %r dealt %r damage to you!" % (enemy_type, enemy_dam)
+		if enemy_hp <= 0:
+			print "You killed the %r!" % enemy_type
+			encounter_time = random.randint(5, 8)
+		if hp <= 0:
+			print "You have died!  Try again!"
+			quit()
+		stop = 0
+	if hp > max_hp:
+		hp = max_hp
