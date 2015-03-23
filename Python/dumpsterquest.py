@@ -39,7 +39,17 @@
 #Version 0.1.2 (aka "The Remembering")
 # -Added a changelog
 
+#Version 0.1.3
+# -Added a semi-broken time system
+
+#Version 0.1.4
+# -Completely removed the time system until later notice
+
+#Version 0.1.5
+# -Changed the "take" command to allow things like "take torch"
+# -Fixed some minor bugs
 import random
+print "Welcome to Dumpster Quest!  For help tpye \"help\"!"
 current_version = "v0.1.2"
 global weapon
 weapon = 0
@@ -58,14 +68,20 @@ global rock_true
 rock_true = 0
 global branch_true
 branch_true = 0
+global letter_true
+letter_true = 0
+#global outside
+#outside = 0
+global timeask
+timeask = ""
 global inventory
 inventory = ""
 global stop
 stop = 0
 global enemy_set
 enemy_set = 0
-global time
-time = 0
+#global time
+#time = 0
 global encounter_time
 encounter_time = 5 #Eventually implement something like encounter_time = random.randint(1, 100) and something like if encounter_time <= 10:      enemy ecnounter or something
 global skip
@@ -94,6 +110,7 @@ x = 0
 y = 0
 print "You have found yourself in a dimly lit cave.  You have no memory of how you got here or who you are.  There is a path to the north and south You see a torch on the ground."
 act = raw_input('> ')
+words = act.split(" ")
 stop = 0
 while stop != 1:
 #Map info for ease of access while debugging:
@@ -107,28 +124,23 @@ while stop != 1:
 		x += 1
 	elif act == "w":
 		x -= 1
+#Debugging command
 	if act == "num":
 		print x
 		print y
-	if act == "take":
-		print "What do you want to take?"
-		if x == 0 and y == 0 and torch_true == 0:
+	if "take" in words:
+		if "torch" in words and x == 0 and y == 0 and torch_true == 0:
 			items = "torch"
-			print items
-			act_take = raw_input('? ')
-			if act_take == "torch":
-				inventory = inventory + "\n" + items
-				torch_true = 1
-				print "You pick up the torch and are able to see better."
-		elif x == 2 and y == 1 and branch_true == 0:
+			inventory = inventory + "\n" + items
+			torch_true = 1
+			print "You pick up the torch and are able to see better."
+		elif "branch" in words and x == 2 and y == 1 and branch_true == 0:
 			items = "branch"
-			print items
-			act_take = raw_input('? ')
-			if act_take == "branch":
-				inventory = inventory + "\n" + items
-				branch_true = 1
-			else:
-				"You don't see that here."
+			inventory = inventory + "\n" + items
+			branch_true = 1
+			print "You pick up the branch and hold it like a spear."
+		else:
+			"You don't see that here."
 	if act == "inv":
 		print inventory
 	if act == "look":
@@ -140,13 +152,21 @@ while stop != 1:
 			quit()
 		else:
 			skip = 0
+#Debugging command
 	elif act == "OP420":
 		weapon = 7
+#Debugging command
 	elif act == "etime":
 		print encounter
 		print encounter_time
 	elif act == "wait":
-			hp += random.randint(0, 1)
+		hp += random.randint(0, 1)
+	elif act == "time":
+		print timeask
+#Debugging command
+	elif act == "rtime":
+		print time
+#Debugging command
 	elif act == "tp":
 		x = int(raw_input('> '))
 		y = int(raw_input('> '))
@@ -157,7 +177,6 @@ while stop != 1:
 		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in %r  The story of the game revolves around a player who has lost his memory and has to find his way back to his dumpster.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!" % current_version
 	if act == "help":
 		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
-	
 	if x == 0 and y == 0 and torch_true == 0:
 		encounter = 0
 		roominfo = "You have found yourself in a dimly lit cave.  You have no memory of how you got here or who you are.  There is a path to the north and south.  You see a torch on the ground."
@@ -173,7 +192,7 @@ while stop != 1:
 		roominfo = "You begin to walk to the north, allowing your torch to light the way.  As you walk you begin to hear a slight howl of wind from ahead of you.  There is a path to the east."
 		print roominfo
 	elif x == 1 and y == 1:
-		roominfo = "You walk to the east and begin to feel the breeze picking up.  You look ahead of you and see a light far ahead."
+		roominfo = "You walk to the east and begin to feel the breeze picking up.  You look ahead of you and see outside a little bit ahead."
 		print roominfo
 	elif x == 2 and y == 1 and branch_true == 0:
 		encounter = 0
@@ -181,12 +200,28 @@ while stop != 1:
 		print roominfo
 	elif x == 2 and y == 1 and branch_true == 1:
 		encounter = 0
-		roominfo = "You reach the end of the tunnel and feel the heat of the sun around you.  The forest to the east glooms over you and you hear the sound of rushing water to the north."
+		roominfo = "You reach the end of the tunnel and see a forest to the east.  You hear the sound of rushing water to the north."
 		print roominfo
 	elif x == 2 and y == 2:
 		encounter = 1
 		enemy_type = "wolf"
 		roominfo = "There is a swiftly flowing stream here.  To the east is a path to the forest.  You think you see a small cottage far to the north."
+		print roominfo
+	elif x == 2 and y == 3:
+		roominfo = "You keep walking around the side of the mountain.  There is a cottage far to the north and a cave to the south.  There is a forest to the east."
+		enemy_type = "wolf"
+		print roominfo
+	elif x == 2 and y == 4:
+		roominfo = "The mountain path seems to be rougher here.  You see that the stream flows from a grate in the mountain.  There is a forest to the east, a cave to the south, and a cottage to the north."
+		enemy_type = "wolf"
+		print roominfo
+	elif x == 2 and y == 5:
+		roominfo = "You are nearing the cottage.  There is a cave far to the south and a forest to the east."
+		enemy_type = "wolf"
+		print roominfo
+	elif x == 2 and y == 6 and letter_true == 0:
+		roominfo = "You stand in front of the mailbox of the cottage.  No lights are on inside the house.  There appears to be something in the mailbox.  There is a cave far to the south and a forest to the east."
+		enemy_type = "wolf"
 		print roominfo
 #This is used to undo movement into an unexisting room
 	else:
@@ -200,7 +235,7 @@ while stop != 1:
 			x -= 1
 	if encounter == 1:
 		encounter_time -= 1
-	if weapon == 0:
+	elif weapon == 0:
 		damage = 3
 	elif weapon == 1:
 		damage = 5
@@ -217,9 +252,32 @@ while stop != 1:
 #This weapon is going to be available for debugging through the input of "OP420"
 	elif weapon == 7:
 		damage = 1337
+#For some reason this code seems to be giving everything strange effects (removed in v0.1.4)
+#	if outside == 1:
+#		if time == 0:
+#			timeask = "The sun is high in the sky."
+#		if time == 15:
+#			timeask = "The sun appears to be setting."
+#		if time == 25:
+#			timeask = "The sunset is just finishing up, it will be night soon."
+#		if time == 30:
+#			timeask = "The sun has set and the moon begins to rise."
+#		if time == 45:
+#			timeask = "The moon is in the middle of the night sky."
+#		if time == 60:
+#			timeask = "The moon is nearing to horizon, soon it will be day."
+#		if time == 70:
+#			timeask = "The sun's glow forces the moon into hiding until tomorrow."
+#		if time == 75:
+#			timeask = "The moon crosses the horizon and out of your view.  The sun begins to brighten up the world again."
+#		if time > 75:
+#			time = -1
+#	elif outside == 0:
+#		timeask = "You can't see the sun from here."
 	stop = 1
 	act = ""
 	act = raw_input('> ')
+	words = act.split(" ")
 	stop = 0
 	while encounter_time == 0:
 		stop = 1
@@ -228,17 +286,17 @@ while stop != 1:
 				enemy_hp = 15
 				enemy_dam = random.randint(1, 3)
 				enemy_dodge = 0
-			enemy_info = "An %r suddenly appears!." % enemy_type
+			enemy_info = "A "+enemy_type+" suddenly appears!."
 			print enemy_info
 			enemy_set = 1
 		act_f = raw_input(fight_p + "\n")
 		if act_f == "1":
 			enemy_hp = enemy_hp - damage
-			print "You dealt %r damage to the %r!" % (damage, enemy_type)
+			print "You dealt %d damage to the %r!" % (damage, enemy_type)
 		elif act_f == "2":
 			print inventory
-#		elif act_f == 3:
-#			dodge_dam = hp - enemy_dam * random.randint(0,1)
+#		elif act_f == "3":
+#			dodge_dam = enemy_dam * random.randint(0, 1)
 #			hp = hp - dodge_dam
 #			if dodge_dam == 0:
 #				print "You dodged the attack!"
@@ -252,9 +310,11 @@ while stop != 1:
 			print "You can't do that!"
 		if enemy_hp > 0: #and dodge_dam != 0:
 			hp = hp - enemy_dam + defe
-			print "The %r dealt %r damage to you!" % (enemy_type, enemy_dam)
+			print "The "+enemy_type+" dealt %r damage to you!" % enemy_dam
+			if enemy_type == "wolf":
+				enemy_dam = random.randint(1, 3)
 		if enemy_hp <= 0 and act_f != "4":
-			print "You killed the" + enemy_type +"!"
+			print "You killed the " + enemy_type +"!"
 			encounter_time = random.randint(5, 8)
 		if hp <= 0:
 			print "You have died!  Try again!"
