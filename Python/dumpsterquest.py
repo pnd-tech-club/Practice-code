@@ -351,6 +351,25 @@ while stop != 1:
 		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a lamp on the ground.  There is leather armor on the ground."
 		print roominfo
 #Player has dagger ^
+	elif x == 3 and y == 8 and z == 1:
+		encounter = 0
+		enemy_type = "orc"
+		roominfo = "As you walk, an ominous presence overwhelms you."
+	elif x == 3 and y == 9 and z == 1:
+		encounter = 1
+		print "There are paths to the north, east, and west."
+#West path split
+	elif x == 2 and y == 9 and z == 1:
+		roominfo = "You hear dripping water in the distance."
+		print roominfo
+#East path split
+	elif x == 4 and y == 9 and z == 1:
+		roominfo = "There is a slight clanking noise in the distance."
+		print roominfo
+#North path split
+	elif x == 3 and y == 10 and z == 1:
+		roominfo = "You barely see the lights from the stairs to the south."
+		print roominfo
 #This is used to undo movement into an unexisting room V
 	else:
 		if act == "n":
