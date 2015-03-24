@@ -1,4 +1,0 @@
-print "What would you like to print? "
-$text = gets.chomp<0,5>substring</6,10>gets.chomp
-print "#{$text}"
-end
