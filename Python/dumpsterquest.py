@@ -48,12 +48,20 @@
 #Version 0.1.5
 # -Changed the "take" command to allow things like "take torch"
 # -Fixed some minor bugs
+
+#Version 0.2.0 (Major update!)
+# -Added TONS of rooms
+# -Added base for armor code
+# -Added slightly better encounter math
+# -Added some other minor things
+# -Fixed some bugs
+
 import random
 print "Welcome to Dumpster Quest!  For help tpye \"help\"!"
-current_version = "v0.1.5"
+current_version = "v0.2.0"
 global weapon
 weapon = 0
-#Weapon list: 0 = hands, 1 = stick, 2 = sharpened stick, 3 = rusty sword, 4 = dull sword, 5 = sharp spear, 6 = polished axe sword, 7 = The Blade of Trash
+#Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Trash
 global armor
 armor = 0
 #Armor list: 0 = Cloth shirt, 1 = Leather Breastplate, 2 = Chainmail Breastplate, 3 = Scale Breastplate, 4 = 
@@ -101,6 +109,8 @@ enemy_set = 0
 #time = 0
 global encounter_time
 encounter_time = 5 #Eventually implement something like encounter_time = random.randint(1, 100) and something like if encounter_time <= 10:      enemy encounter or something
+global lamp_true
+lamp_true = 0
 global skip
 skip = 0
 global enemy_hp
@@ -123,8 +133,10 @@ global encounter
 encounter = 0
 global x
 global y
+global z
 x = 0
 y = 0
+z = 0
 print "You have found yourself in a dimly lit cave.  You have no memory of how you got here or who you are.  There is a path to the north and south You see a torch on the ground."
 act = raw_input('> ')
 words = act.split(" ")
@@ -133,6 +145,7 @@ while stop != 1:
 #Map info for ease of access while debugging:
 #Variable 'x' is west/east(ex. -1 would be to the west and +1 would be to the east)
 #Variable 'y' is south/north(ex. -1 would be to the south and +1 would be to the north)
+#Variable "z" is an inverted height (+1 would be down and -1 would be up)
 	if act == "n":
 		y += 1
 	elif act == "s":
@@ -141,11 +154,21 @@ while stop != 1:
 		x += 1
 	elif act == "w":
 		x -= 1
+	elif act == "down":
+		z += 1
+	elif act == "up":
+		z -= 1
 #Debugging command
 	if act == "num":
 		print x
 		print y
 		encounter_time += 1
+	if "use" in words:
+		if "switch" in words and x == 3 and y == 7 and z == 0:
+			lights_true = 1
+			print "You flip the switch and the lights in the house suddenly turn on."
+		elif "switch" in words and x == 3 and y == 7 and z == 0 and lights_true == 1:
+			print "You wiggle the switch but nothing happens."
 	if "take" in words:
 		if "torch" in words and x == 0 and y == 0 and torch_true == 0:
 			items = "torch"
@@ -163,11 +186,29 @@ while stop != 1:
 			letter_true = 1
 			print "You take the letter out of the mailbox."
 			print letter
+		elif "dagger" in words and x == 3 and y == 7 and z == 1 and weapon < 2:
+			items = "dagger"
+			inventory = inventory + "\n" + items
+			weapon = 2
+			print "You weild the dagger and feel stronger."
+		elif "armor" in words and x == 3 and y == 7 and z == 1 and armor < 1:
+			items = "leather armor"
+			inventory = inventory + "\n" + items
+			armor = 1
+			print "You put on the leather armor."
+		elif "lamp" in words and x == 3 and y == 7 and z == 1 and "lamp" not in inventory:
+			items = "lamp"
+			inventory = inventory + "\n" + items
+			lamp_true = 1
+			print "Your torch happens to burn out as you pick up the lamp."
 		else:
 			print "You don't see that here."
 		encounter_time += 1
 	if act == "inv":
-		print inventory
+		if lamp_true == 0:
+			print inventory
+		elif lamp_true == 1:
+			print inventory
 		encounter_time += 1
 	if act == "look":
 		skip = 0
@@ -250,15 +291,20 @@ while stop != 1:
 		enemy_type = "wolf"
 		print roominfo
 	elif x == 2 and y == 6 and letter_true == 0:
+		encounter = 1
 		roominfo = "You stand in front of the mailbox of the cottage.  No lights are on inside the house.  There appears to be something in the mailbox.  There is a cave far to the south and a forest to the east."
+		print roominfo
 	elif x == 2 and y == 6 and letter_true == 1:
+		encounter = 1
 		roominfo = "You stand in front of the mailbox of the cottage.  No lights are on inside the house.  There is a cave far to the south and a forest to the east."
 		enemy_type = "wolf"
 		print roominfo
 	elif x == 2 and y == 7 and lights_true == 0:
+		encounter = 0
 		roominfo = "The inside of the house is cold and dark.  You have an unexplainable feeling of gloom."
 		print roominfo
 	elif x == 2 and y == 7 and lights_true == 1:
+		encounter = 0
 		roominfo = "There is a bright red stain on the rug in front of the door.  You have an unexplainable feeling of dread."
 		print roominfo
 	elif x == 3 and y == 7 and z == 0 and lights_true == 0:
@@ -272,7 +318,40 @@ while stop != 1:
 	elif x == 3 and y == 7 and z == 0 and lights_true == 1:
 		roominfo = "The light shows that there are stairs going down.  There are rooms to the east and west."
 		print roominfo
-#This is used to undo movement into an unexisting room
+#I know there is someway to make this more efficient, but oh well I don't have time for thinking right now :^ )
+	elif x == 3 and y == 7 and z == 1 and lights_true == 1 and "lamp" not in inventory and "dagger" not in inventory and weapon < 2:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a lamp on the ground.  There is a dagger on the ground.  There is leather armor on the ground."
+		print roominfo
+#Player has nothing
+	elif x == 3 and y == 7 and z == 1 and "lamp" in inventory and armor < 1 and "dagger" not in inventory:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a dagger on the ground.  There is leather armor on the ground."
+		print roominfo
+#Player has lamp ^
+	elif x == 3 and y == 7 and z == 1 and "lamp" in inventory and armor >= 1 and "dagger" not in inventory:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a dagger on the ground."
+		print roominfo
+#Player has lamp and armor ^
+	elif x == 3 and y == 7 and z == 1 and "lamp" in inventory and armor < 1 and "dagger" in inventory:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is leather armor on the ground."
+		print roominfo
+#Player has lamp and dagger ^
+	elif x == 3 and y == 7 and z == 1 and "lamp" in inventory and armor >= 1 and "dagger" in inventory:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north."
+		print roominfo
+#Player has all items ^
+	elif x == 3 and y == 7 and z == 1 and "lamp" not in inventory and armor >= 1 and "dagger" in inventory:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a lamp on the ground.  There is a dagger on the ground."
+		print roominfo
+#Player has leather armor ^
+	elif x == 3 and y == 7 and z == 1 and "dagger" in inventory and "lamp" not in inventory and armor >= 1:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a lamp on the ground."
+		print roominfo
+#Player has dagger and armor ^
+	elif x == 3 and y == 7 and z == 1 and "dagger" in inventory and "lamp" not in inventory and armor < 1:
+		roominfo = "You reach the bottom of the stairs and see a path leading to the north.  There is a lamp on the ground.  There is leather armor on the ground."
+		print roominfo
+#Player has dagger ^
+#This is used to undo movement into an unexisting room V
 	else:
 		if act == "n":
 			y -= 1
@@ -282,7 +361,11 @@ while stop != 1:
 			x += 1
 		elif act == "e":
 			x -= 1
-	if encounter == 1:
+		elif act == "down":
+			z -= 1
+		elif act == "up":
+			z += 1
+	if encounter != 0:
 		encounter_time -= 1
 	elif weapon == 0:
 		damage = 3
