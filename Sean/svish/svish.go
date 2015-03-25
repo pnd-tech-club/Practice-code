@@ -55,6 +55,10 @@ func main() {
 			fmt.Println("Scanner error!")
 		}
 		usrinput := scanner.Text()
+		if usrinput == "" {
+			fmt.Println("Blank sent!")
+			continue	
+		}
 		usrcmds := strings.Fields(usrinput) //splits text
 		/* Begin Hackage */
 
