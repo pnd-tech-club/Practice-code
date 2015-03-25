@@ -1,10 +1,6 @@
 #Remake of Atheria. Hope this one goes better than the last.
 $y = 0
 $x = 0
-$n = $y + 1
-$s = $y - 1
-$w = $x + 1
-$e = $x - 1
 $rinfo = 0
 $start = 0
 $version = "0.0.0.2"
@@ -17,24 +13,7 @@ puts "#{$y} read y initial"
 	puts ""
 	puts ""
 	puts ""
-while $start == 0
-
-	if $x == 0 and $y == 0
-		$rinfo = "As you look around the tavern, you see that things have mostly calmed down. There is a staircase to the east and the exit to the south. "
-		puts "#{$rinfo}"
-		$act = gets.chomp
-	elsif $x == 1 and $y == 0
-		puts "You try to walk to the kitchen, but are stopped by the wall. "
-		$x = 0
-		$y = 0
-	elsif $x == 0 and $y == 1
-		puts "You attempt to phase through the wall. It fails. "
-		$x = 0
-		$y = 0
-	puts "#{$x} x read3"
-	puts "#{$y} y read3"
-	puts "#{$x} x read1"
-	puts "#{$y} y read1"
+while $start != 1
 	if $act == "n" or "north"
 		$y = $y + 1
 		puts "north"
@@ -66,6 +45,22 @@ while $start == 0
 		$start = 1
 	else puts "Unknown command"
 	end
+	if $x == 0 and $y == 0
+		$rinfo = "As you look around the tavern, you see that things have mostly calmed down. There is a staircase to the east and the exit to the south. "
+		puts "#{$rinfo}"
+		$act = gets.chomp
+	elsif $x == 1 and $y == 0
+		puts "You try to walk to the kitchen, but are stopped by the wall. "
+		$x = 0
+		$y = 0
+	elsif $x == 0 and $y == 1
+		puts "You attempt to phase through the wall. It fails. "
+		$x = 0
+		$y = 0
+	puts "#{$x} x read3"
+	puts "#{$y} y read3"
+	puts "#{$x} x read1"
+	puts "#{$y} y read1"
 	puts "#{$x} x read2"
 	puts "#{$y} y read2"
 end
