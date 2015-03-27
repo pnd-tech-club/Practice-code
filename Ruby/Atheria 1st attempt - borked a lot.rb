@@ -20,7 +20,7 @@ print "Now you are ready for your adventure! "
 
 room = "tavern"
 while room == "tavern"
-	print "The tavern is loud and crowded. You just finished your last drink and are ready to go somewhere. The exit is to the south, there are stairs to the east. 
+	print "The tavern is loud and crowded. You just finished your last drink and are ready to go somewhere. The exit is to the south, there are stairs to the east. "
 dir = gets.chomp
 if dir == "n"
 	print "You encounter a group of tightly packed people and cannot move further. "

@@ -9,6 +9,7 @@ import (
 "io"
 "bytes"
 "log"
+"flag"
 )
 
 func populateStdin(str string) func(io.WriteCloser) {
@@ -41,20 +42,37 @@ func runCatFromStdinWorks(populate_stdin_func func(io.WriteCloser)) {
 }
 
 func main() {
-	prompt := "\nSVI% "
-	reader := os.Stdin
-	scanner := bufio.NewScanner(reader)
-	svipath := "./svicmds"
-
-	loopstate := true
+	var svipath string
+	flag.StringVar(&svipath, "path", "./svicmds", "Path from / to binaries to use as auxilliary svish commands")
+	flag.Parse()
+	
 	fmt.Printf("Your svipath is: %s\n\n", svipath)
+	loopstate := true
 	for loopstate != false {
+		prompt := "\nSVI% "
+		reader := os.Stdin
+		scanner := bufio.NewScanner(reader)
+
 		fmt.Print(prompt)
-		scanerr := scanner.Scan()
-		if scanerr == false {
-			fmt.Println("Scanner error!")
+		scanend := scanner.Scan()
+		scanerr := scanner.Err()
+		if scanerr != nil {
+			fmt.Printf("\r\n")
+			continue
+		}
+		if scanend == false {
+			if scanerr == nil{
+			fmt.Printf("\r\n")
+			} else {
+			fmt.Printf("\nScanner ended!\n")
+			}
+			continue
 		}
 		usrinput := scanner.Text()
+		if usrinput == "" {
+			fmt.Printf("\r")
+			continue	
+		}
 		usrcmds := strings.Fields(usrinput) //splits text
 		/* Begin Hackage */
 
@@ -74,12 +92,12 @@ func main() {
 					altout, alterr := exec.Command(altcmd, "").CombinedOutput()
 					// detect if input is needed...?
 
-          fmt.Printf("\nRaw Err: %v", alterr)
+         				fmt.Printf("\nRaw Err: %v", alterr)
 					fmt.Printf("\nOutput: \n\n%s\n", altout)
 				} else {
 
 					args := usrcmds[1:len(usrcmds)]
-          fmt.Print("MEEP\n")
+          				//fmt.Print("MEEP\n")
 					// combination of two functions
 					stdout, commanderr := exec.Command(binary, args...).CombinedOutput()
 					//command := exec.Command(binary, args...)
