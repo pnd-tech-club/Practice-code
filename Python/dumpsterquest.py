@@ -265,6 +265,9 @@ while stop != 1:
 	if act == "help":
 		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
 		encounter_time += 1
+	else:
+		print "Unknown command!"
+		act = raw_input('> ')
 	if x == 0 and y == 0 and torch_true == 0:
 		encounter = 0
 		roominfo = "You have found yourself in a dimly lit cave.  You have no memory of how you got here or who you are.  There is a path to the north and south.  You see a torch on the ground."
