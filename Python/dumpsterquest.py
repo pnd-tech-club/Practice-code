@@ -62,9 +62,16 @@
 # -Added better formatting for some stuff
 # -Removed junk
 
+#Version 0.2.5 (Semi-major update)
+# -Reworked inventory system to allow item removal
+# -Changed some other minor things
+# -Condensed some code
+# -Threw out some junk
+#Laid out groundwork for better things and stuff
+
 import random
 print "Welcome to Dumpster Quest!  For help tpye \"help\"!"
-current_version = "v0.2.1"
+current_version = "v0.2.5"
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Trash
