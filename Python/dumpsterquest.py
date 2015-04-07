@@ -97,10 +97,7 @@ branch_true = 0
 global letter_true
 letter_true = 0
 #Add all needed triggers before here
-#global outside
-#outside = 0
-#global timeask
-#timeask = ""
+#Note to re-add/fix time at some point
 global inventory
 inventory = []
 global stop
