@@ -166,9 +166,9 @@ while stop != 1:
 		x += 1
 	elif act == "w":
 		x -= 1
-	elif act == "down":
+	elif act == "d":
 		z += 1
-	elif act == "up":
+	elif act == "u":
 		z -= 1
 #Debugging command
 	if act == "num":
@@ -265,8 +265,6 @@ while stop != 1:
 	if act == "help":
 		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
 		encounter_time += 1
-	else:
-		print "Unknown command!"
 	if x == 0 and y == 0 and torch_true == 0:
 		encounter = 0
 		roominfo = "You have found yourself in a dimly lit cave.  You have no memory of how you got here or who you are.  There is a path to the north and south.  You see a torch on the ground."
@@ -455,9 +453,9 @@ while stop != 1:
 			x += 1
 		elif act == "e":
 			x -= 1
-		elif act == "down":
+		elif act == "d":
 			z -= 1
-		elif act == "up":
+		elif act == "u":
 			z += 1
 	if encounter != 0:
 		encounter_time -= 1
