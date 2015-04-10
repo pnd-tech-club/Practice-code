@@ -69,9 +69,13 @@
 # -Threw out some junk
 #Laid out groundwork for better things and stuff
 
+#Version 0.2.6
+# -Added in "clear" command
+# -Bug fixes
+import os
 import random
 print "Welcome to Dumpster Quest!  For help tpye \"help\"!"
-current_version = "v0.2.5"
+current_version = "v0.2.6"
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Trash
@@ -87,7 +91,9 @@ damage = 3
 global max_hp
 max_hp = 20
 #Note to add all needed triggers after here
-triggers = ""
+global trapdoor_true
+trapdoor_true = 0
+triggers = []
 global torch_true
 torch_true = 0
 global lights_true
@@ -97,7 +103,10 @@ branch_true = 0
 global letter_true
 letter_true = 0
 #Add all needed triggers before here
-#Note to re-add/fix time at some point
+#global outside
+#outside = 0
+#global timeask
+#timeask = ""
 global inventory
 inventory = []
 global stop
@@ -220,9 +229,10 @@ while stop != 1:
 		else:
 			print "You don't see that here."
 		encounter_time += 1
+	if act == "clear":
+		os.system('clear')
 	if act == "inv":
-		if lamp_true == 0:
-			print (inventory)
+		print (inventory)
 		encounter_time += 1
 	if act == "look":
 		skip = 0
@@ -315,14 +325,20 @@ while stop != 1:
 		print roominfo
 	elif x == 2 and y == 7 and lights_true == 0:
 		encounter = 0
-		roominfo = "The inside of the house is cold and dark.  You have an unexplainable feeling of gloom."
+		roominfo = "The inside of the house is cold and dark.  You have an unexplainable feeling of gloom.  There are rooms to the east and the north."
 		print roominfo
 	elif x == 2 and y == 7 and lights_true == 1:
 		encounter = 0
-		roominfo = "There is a bright red stain on the rug in front of the door.  You have an unexplainable feeling of dread."
+		roominfo = "There is a bright red stain on the rug in front of the door.  You have an unexplainable feeling of dread.  The kitchen is to the east and the living room is to the north."
 		print roominfo
 	elif x == 3 and y == 7 and z == 0 and lights_true == 0:
-		roominfo = "The room is lit up slightly by a window.  You can see a switch by the window."
+		roominfo = "The room is lit up slightly by a window.  You can see a switch by the window.  The doorway is to the west."
+		print roominfo
+	elif x == 2 and y == 8 and lights_true == 0:
+		roominfo = "It's way too dark in here for you to see anything.  The doorway is to the south."
+		print roominfo
+	elif x == 2 and y == 8 and lights_true == 1:
+		roominfo = "The living room is completely barren.  There appears to be something in the floor.  The doorway is to the south."
 		print roominfo
 #Variable "z" is an inverted height (+1 would be down and -1 would be up)
 	elif x == 3 and y == 7 and z == 1 and lights_true == 0:
@@ -388,9 +404,14 @@ while stop != 1:
 		print "There is a path to the north."
 #West path split
 	elif x == 2 and y == 9 and z == 1 and "westpath" not in triggers:
-		roominfo = "You hear dripping water in the distance.  There is a path to the east and west"
+		roominfo = "You hear dripping water in the distance.  A large slab of stone blocks your way back.  There is a path to the west"
 		print roominfo
-		triggers += "westpath"+"\n"
+		triggers.append("westpath")
+	elif x == 2 and y == 9 and z == 1 and "westpath" in triggers:
+		roominfo = "You hear dripping water in the distance.  There is a path to the west"
+		print roominfo
+		if act == "e":
+			w += 1
 	elif x == 1 and y == 9 and z == 1:
 		roominfo = "The strange dripping sound seems a short distance away.  There is a path to the north and east."
 		print roominfo
@@ -435,7 +456,7 @@ while stop != 1:
 	elif x == 4 and y == 9 and z == 1 and "eastpath" not in triggers:
 		roominfo = "There is a slight clanking noise in the distance."
 		print roominfo
-		triggers += "eastpath"
+		triggers.append("eastpath")
 #North path split
 	elif x == 3 and y == 10 and z == 1:
 		roominfo = "All you see to the north is darkness."
