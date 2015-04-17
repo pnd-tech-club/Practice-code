@@ -462,7 +462,7 @@ while stop != 1:
 		print roominfo
 		triggers.append("eastpath")
 		if act == "w":
-			
+			x -= 1
 #North path split
 	elif x == 3 and y == 10 and z == 1:
 		roominfo = "All you see to the north is darkness."
