@@ -72,13 +72,16 @@
 #Version 0.2.6
 # -Added in "clear" command
 # -Bug fixes
+
+#Version 0.2.7
+# -Added more rooms
 import os
 import random
-print "Welcome to Dumpster Quest!  For help tpye \"help\"!"
-current_version = "v0.2.6"
+print "Welcome to Kazoo Quest!  For help tpye \"help\"!"
+current_version = "v0.2.7"
 global weapon
 weapon = 0
-#Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Trash
+#Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Honking
 global armor
 armor = 0
 #Armor list: 0 = Cloth shirt, 1 = Leather Breastplate, 2 = Chainmail Breastplate, 3 = Scale Breastplate, 4 = 
@@ -231,8 +234,9 @@ while stop != 1:
 		encounter_time += 1
 	if act == "clear":
 		os.system('clear')
+		encounter_time += 1
 	if act == "inv":
-		print (inventory)
+		print '\n'.join(inventory)
 		encounter_time += 1
 	if act == "look":
 		skip = 0
@@ -267,7 +271,7 @@ while stop != 1:
 		print "Damage: %r\nHealth:%r\nDefense:%r" % (damage, hp, defe)
 		encounter_time += 1
 	elif act == "credits":
-		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in %r  The story of the game revolves around a player who has lost his memory and has to find his way back to his dumpster.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!" % current_version
+		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in %r  The story of the game revolves around a player who has lost his memory and has to find his Golden Kazoo.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!" % current_version
 		encounter_time += 1
 	if act == "help":
 		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
@@ -457,6 +461,8 @@ while stop != 1:
 		roominfo = "There is a slight clanking noise in the distance."
 		print roominfo
 		triggers.append("eastpath")
+		if act == "w":
+			
 #North path split
 	elif x == 3 and y == 10 and z == 1:
 		roominfo = "All you see to the north is darkness."
