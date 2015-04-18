@@ -75,10 +75,47 @@
 
 #Version 0.2.7
 # -Added more rooms
-import os
-import random
-print "Welcome to Kazoo Quest!  For help tpye \"help\"!"
-current_version = "v0.2.7"
+
+#Version 0.3 (Major update! :^)
+# -Added basic magic functionality
+# -Implemented parrying into the dodge mechanic
+# -Official game rename- from "Dumpster Quest" to "Kazoo Quest"
+# -Added many rooms
+# -Added new enemies
+# -Testing re-implementation of time functionality
+# -Balanced enemy/player health and damage
+# -Made some other minor functionality changes
+# -Set some groundwork for later ideas
+# -Fixed some spelling mistakes (including a misspelling of "type" :P )
+# -Attempted some layout of cool future features- including updating from command-line
+import os, argparse, random, time
+#A lot of code here was removed for a while in Version 0.3
+#def nicedesu():
+#	global tbar
+#	tbar = []
+#	timet = 0
+#	while timet == 100000:
+#		tbar.extend('|')
+#		print ''.join(tbar)
+#		if timet >= 201:
+#			skip = 0
+#	timet += 1
+def update():
+	ping_test = os.system('ping -q -c3 http://www.github.com >/dev/null')
+	if ping_test == 0:
+		pstatus = "Connection to Github available.  Downloading update."
+		os.system('wget -q https://raw.githubusercontent.com/pnd-tech-club/Practice-code/Python/kazooquest.py')
+		nicedesu()
+		print "Done!"
+	else:
+		print "Connection failed.  Check your internet connection and try again."
+#This code may be severely broken, I really don't have a clue at the time of writing it as I wrote it using online documentation and couldn't test it
+#parser = argparse.ArgumentParser(description='Kazoo Quest')
+#parser.add_argument('--update', update = update())
+#args = parser.parse_args()
+#nicedesu()
+print "Welcome to Kazoo Quest!  For help type \"help\"!"
+current_version = "v0.2"
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Honking
@@ -126,8 +163,9 @@ We would also appreciate if you could begin to proceed with your ideas(at least 
 """
 global enemy_set
 enemy_set = 0
-#global time
-#time = 0
+#Time removed in v0.1.4 (Re-implementation being tested in v0.3)
+global time
+time = 0
 global encounter_time
 encounter_time = 5 #Eventually implement something like encounter_time = random.randint(1, 100) and something like if encounter_time <= 10:      enemy encounter or something
 global lamp_true
@@ -144,12 +182,16 @@ global enemy_info
 enemy_info = ""
 global enemy_type
 global fight_p
-fight_p = enemy_info + "What do you want to do?\n1: Attack\n2: Items\n3: Magic\n4: Run Away"
+fight_p = enemy_info + "What do you want to do?\n1: Attack\n2: Magic\n3: Dodge\n4: Run Away"
 global f_act
 global hp
 hp = 20
 global defe
 defe = 1
+global mana
+mana = 5
+global kills
+kills = []
 global encounter
 encounter = 0
 global x
@@ -211,7 +253,7 @@ while stop != 1:
 			items = "dagger"
 			inventory.append(items)
 			weapon = 2
-			print "You weild the dagger and feel stronger."
+			print "You wield the dagger and feel stronger."
 		elif "armor" in words and x == 3 and y == 7 and z == 1 and armor < 1:
 			items = "leather armor"
 			inventory.append(items)
@@ -266,15 +308,17 @@ while stop != 1:
 	elif act == "tp":
 		x = int(raw_input('> '))
 		y = int(raw_input('> '))
+		z = int(raw_input('> '))
 		torch_true = 1
+		lights_true = 1
 	elif act == "info":
-		print "Damage: %r\nHealth:%r\nDefense:%r" % (damage, hp, defe)
+		print "Damage: %r\nHealth:%r\nDefense:%r\nMana:%r" % (damage, hp, defe, mana)
 		encounter_time += 1
 	elif act == "credits":
 		print "This game was written by Matthew Knecht in Python 2.7.  It is currently in %r  The story of the game revolves around a player who has lost his memory and has to find his Golden Kazoo.  The game doesn't have much content- but that will be resolved shortly.  Thanks for playing!" % current_version
 		encounter_time += 1
 	if act == "help":
-		print "-help \n -look \n -wait \n -use \n -take \n -move(n,s,e,w) \n -back \n -info"
+		print "-help \n -look \n -wait \n -use \n -take \n -move(n, s, e, w, u, d) \n -back \n -info"
 		encounter_time += 1
 	if x == 0 and y == 0 and torch_true == 0:
 		encounter = 0
@@ -350,7 +394,7 @@ while stop != 1:
 		print roominfo
 		z += 1
 	elif x == 3 and y == 7 and z == 0 and lights_true == 1:
-		roominfo = "The light shows that there are stairs going down.  There are rooms to the east and west."
+		roominfo = "The light shows that there are stairs going down.  The entrance is to the west."
 		print roominfo
 #I know there is someway to make this more efficient, but oh well I don't have time for thinking right now :^ )
 	elif x == 3 and y == 7 and z == 1 and lights_true == 1 and "lamp" not in inventory and "dagger" not in inventory and weapon < 2:
@@ -458,11 +502,16 @@ while stop != 1:
 		z = 1
 #East path split
 	elif x == 4 and y == 9 and z == 1 and "eastpath" not in triggers:
-		roominfo = "There is a slight clanking noise in the distance."
+		roominfo = "There is a slight clanking noise in the distance.  There is a path that stretches far ahead of you."
 		print roominfo
 		triggers.append("eastpath")
 		if act == "w":
 			x -= 1
+	elif x == 5 and y == 9 and z == 1:
+		enemy_type = "dwarf"
+		roominfo = "You see ."
+		print roominfo
+		
 #North path split
 	elif x == 3 and y == 10 and z == 1:
 		roominfo = "All you see to the north is darkness."
@@ -503,28 +552,36 @@ while stop != 1:
 	if armor == 0:
 		defe = 1
 		max_hp = 20
+		mana = 5
 	elif armor == 1:
 		defe = 5
 		max_hp = 25
+		mana = 10
 	elif armor == 2:
 		defe = 9
 		max_hp = 30
+		mana = 15
 	elif armor == 3:
 		defe = 15
 		max_hp = 40
+		mana = 20
 	elif armor == 4:
 		defe = 23
 		max_hp = 50
+		mana = 30
 	elif armor == 5:
 		defe = 30
 		max_hp = 60
+		mana = 40
 	elif armor == 6:
 		defe = 45
 		max_hp = 75
+		mana = 50
 	elif armor == 7:
 		defe = 420
 		max_hp = 9001
-#For some reason this code seems to be giving everything strange effects (removed in v0.1.4)
+		mana = 0.69e+42
+#For some reason this code seems to be giving everything strange effects (removed in v0.1.4) (Re-implementation testing beginning in v0.3)
 #	if outside == 1:
 #		if time == 0:
 #			timeask = "The sun is high in the sky."
@@ -560,16 +617,20 @@ while stop != 1:
 				enemy_dodge = 0
 			elif enemy_type == "orc":
 				enemy_hp = 25
-				enemy_dam = random.randint(6, 8)
+				enemy_dam = random.randint(5, 7)
 				enemy_dodge = 1
 			elif enemy_type == "wraith":
 				enemy_hp = 30
-				enemy_dam = random.randint(7, 9)
+				enemy_dam = random.randint(6, 8)
 				enemy_dodge = 3
 			elif enemy_type == "dwarf":
 				enemy_hp = 35
-				enemy_dam = random.randint(8, 11)
+				enemy_dam = random.randint(6, 9)
 				enemy_dodge = 1
+			elif enemy_type == "spirit":
+				enemy_hp = 40
+				enemy_dam = random.randint(7, 10)
+				enemy_dodge = 0
 #Remember to fix this silly grammar thingy here
 			enemy_info = "A "+enemy_type+" suddenly appears!."
 			print enemy_info
@@ -578,14 +639,19 @@ while stop != 1:
 		dodges = 0
 		if act_f == "1":
 			enemy_hp = enemy_hp - damage
-			print "You dealt %d damage to the %r!" % (damage, enemy_type)
+			print "You dealt %d damage to the %s!" % (damage, enemy_type)
 		elif act_f == "2":
 			print inventory
 		elif act_f == "3":
-			dodge_dam = enemy_dam * random.randint(0, 1)
-			hp = hp - dodge_dam
+			dodge_dam = enemy_dam * random.randint(0, 2)
 			if dodge_dam == 0:
+				hp = hp - dodge_dam
 				print "You dodged the attack!"
+				dodges = 1
+			elif dodge_dam == 2:
+				parrypowa = damage * 2
+				enemy_hp -= parrypowa
+				print "You parried the attack and dealt %d damage!" % parrypowa
 				dodges = 1
 		elif act_f == "4":
 			run_success = random.randint(0, 3)
@@ -609,6 +675,7 @@ while stop != 1:
 		if enemy_hp <= 0 and act_f != "4":
 			enemy_set = 0
 			print "You killed the " + enemy_type +"!"
+			kills.append(enemy_type)
 			encounter_time = random.randint(5, 8)
 		if hp <= 0:
 			print "You have died!  Try again!"
