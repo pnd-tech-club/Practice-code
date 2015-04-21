@@ -122,7 +122,7 @@ print ".",
 print ".",
 print " Done!"
 print "Welcome to Kazoo Quest!  For help type \"help\"!"
-current_version = "v0.2"
+current_version = "v0.3"
 global weapon
 weapon = 0
 #Weapon list: 0 = hands, 1 = stick, 2 = dagger, 3 = dull sword, 4 = Blade Staff, 5 = sharp spear, 6 = polished axe, 7 = The Blade of Honking
