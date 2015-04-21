@@ -114,6 +114,13 @@ def update():
 #parser.add_argument('--update', update = update())
 #args = parser.parse_args()
 #nicedesu()
+global wait
+wait = 0
+#I will eventually add in a timer thingy here to add some fancy delay :P
+print "Loading.",
+print ".",
+print ".",
+print " Done!"
 print "Welcome to Kazoo Quest!  For help type \"help\"!"
 current_version = "v0.2"
 global weapon
@@ -182,7 +189,7 @@ global enemy_info
 enemy_info = ""
 global enemy_type
 global fight_p
-fight_p = enemy_info + "What do you want to do?\n1: Attack\n2: Magic\n3: Dodge\n4: Run Away"
+fight_p = enemy_info + "What do you want to do?\n1: Attack\n2: Magic\n3: Dodge\n4: Enemy Info\n5: Run Away"
 global f_act
 global hp
 hp = 20
@@ -192,6 +199,7 @@ global mana
 mana = 5
 global kills
 kills = []
+global enemy_dam_info
 global encounter
 encounter = 0
 global x
@@ -293,6 +301,7 @@ while stop != 1:
 #Debugging command
 	elif act == "OP420":
 		weapon = 7
+		armor = 7
 #Debugging command
 	elif act == "etime":
 		print encounter
@@ -581,7 +590,7 @@ while stop != 1:
 		defe = 420
 		max_hp = 9001
 		mana = 0.69e+42
-#For some reason this code seems to be giving everything strange effects (removed in v0.1.4) (Re-implementation testing beginning in v0.3)
+#For some reason this code seems to be giving everything strange effects (removed in v0.1.4) (Re-implementation testing beginning in v0.3- testing produced no good results)
 #	if outside == 1:
 #		if time == 0:
 #			timeask = "The sun is high in the sky."
@@ -614,22 +623,27 @@ while stop != 1:
 			if enemy_type == "wolf":
 				enemy_hp = 15
 				enemy_dam = random.randint(1, 3)
+				enemy_dam_info = "1 to 3"
 				enemy_dodge = 0
 			elif enemy_type == "orc":
 				enemy_hp = 25
 				enemy_dam = random.randint(5, 7)
+				enemy_dam_info = "5 to 7"
 				enemy_dodge = 1
 			elif enemy_type == "wraith":
 				enemy_hp = 30
 				enemy_dam = random.randint(6, 8)
+				enemy_dam_info = "6 to 8"
 				enemy_dodge = 3
 			elif enemy_type == "dwarf":
 				enemy_hp = 35
 				enemy_dam = random.randint(6, 9)
+				enemy_dam_info = "6 to 9"
 				enemy_dodge = 1
 			elif enemy_type == "spirit":
 				enemy_hp = 40
 				enemy_dam = random.randint(7, 10)
+				enemy_dam_info = "7 to 10"
 				enemy_dodge = 0
 #Remember to fix this silly grammar thingy here
 			enemy_info = "A "+enemy_type+" suddenly appears!."
@@ -654,6 +668,8 @@ while stop != 1:
 				print "You parried the attack and dealt %d damage!" % parrypowa
 				dodges = 1
 		elif act_f == "4":
+			print "Enemy Health: %d\nEnemy Damage: %s" % (enemy_hp, enemy_dam_info)
+		elif act_f == "5":
 			run_success = random.randint(0, 3)
 			if run_success == 1:
 				encounter_time = random.randint(5, 7)
@@ -661,7 +677,7 @@ while stop != 1:
 				print "You ran away!"
 		else:
 			print "You can't do that!"
-		if enemy_hp > 0 and dodges == 0:
+		if enemy_hp > 0 and dodges == 0 and act_f != "4":
 			hp = hp - enemy_dam + defe
 			print "The "+enemy_type+" dealt %r damage to you!" % enemy_dam
 			if enemy_type == "wolf":
@@ -672,14 +688,23 @@ while stop != 1:
 				enemy_dam = random.randint(7, 9)
 			elif enemy_type == "dwarf":
 				enemy_dam = random.randint(8, 11)
-		if enemy_hp <= 0 and act_f != "4":
+		if enemy_hp <= 0 and act_f != "5":
 			enemy_set = 0
 			print "You killed the " + enemy_type +"!"
 			kills.append(enemy_type)
 			encounter_time = random.randint(5, 8)
 		if hp <= 0:
-			print "You have died!  Try again!"
-			quit()
+			print "You have died!"
+			print "Do you want to see your final stats?"
+			dead_p = raw_input('y/n ')
+			if dead_p == "y":
+				print "You killed these enemies:"
+				print ', '.join(kills)
+				print "These are your final stats:"
+				print "Damage: %r\nHealth:%r\nDefense:%r\nMana:%r" % (damage, hp, defe, mana)
+				quit()
+			else:
+				quit()
 		stop = 0
 	if hp > max_hp:
 		hp = max_hp
