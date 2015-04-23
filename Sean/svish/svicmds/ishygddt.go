@@ -1,5 +1,8 @@
 package main
 
+// This program does not open castanza.txt when run due to a change in scope
+// this error is known and a solution should be made where castanza.txt is in a known location (i.e. on SVIOS)
+
 // no time because not in the main code...for obvious reasons
 //import "time"
 import "fmt"

@@ -1,0 +1,6 @@
+$start = 0
+while $start == 0	
+	exec "say be quiet"
+	sleep(0.5)
+	$start = 1
+end

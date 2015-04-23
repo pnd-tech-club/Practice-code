@@ -66,14 +66,9 @@ while $start != 1
 		puts "#{$g1} #{$g4}"
 		puts "#{$g2} #{$g3}"
 		puts "#{$g2} #{$g4}"
-	elsif $com = "3x3"
-		puts "__  __  __
-		__
-		__
-		__"
-		puts "First number? "
-	elsif $com = "help"
-		puts "The squares able to be done by this program are from 2x2 to 10x10, squares only. Will add other shapes later. "
+		$outcount = 0
+	elsif $com == "help"
+		puts "The only square this program can currently do is a 2x2. That is also the command for it. Will add other shapes later. Use quit to exit the program. You can ignore the outcount variable, and the first print line of the answer. That is for something that will be in a diffrent program. "
 	elsif $com == "quit"
 	$start = 1
 		

@@ -144,10 +144,10 @@ print "Please enter your operation. "
 			puts "Purge successful"
 		elsif $pr == "n2"
 			$n2 = 0
-			"Purge successful"
+			puts "Purge successful"
 		elsif $pr == "n3"
 			$n3 = 0
-			"Purge successful"
+			puts "Purge successful"
 		elsif $pr == "all"
 			$n1 = 0
 			$n2 = 0
