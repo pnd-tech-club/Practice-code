@@ -1,6 +1,7 @@
-$start = 0
-while $start == 0	
-	exec "say be quiet"
+$start = 1
+while $start == 1	
+	$say = `say be quiet`
+	print "#$say"
 	sleep(0.5)
-	$start = 1
+	$start = 0
 end

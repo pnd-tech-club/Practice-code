@@ -157,6 +157,22 @@ print "Please enter your operation. "
 			$op = "start"
 		puts "Purge successful"
 		end
+	elsif $op == "set"
+		print "Which varaible would you like to set? "
+			$set = gets.chomp
+			if $set == "n1"
+				$n1 = Float(gets.chomp)
+				puts "n1 successfully set"
+			elsif $set == "n2"
+				$n2 = Float(gets.chomp)
+				puts "n2 successfully set"
+			elsif $set == "n3"
+				$n3 = Float(gets.chomp)
+				puts "n3 successfully set"
+			end
+	elsif $op == "clear"
+		$cl = `clear`
+		print "#{cl}"
 	elsif $op == "geometry"
 		$b = 1
 		while $b == 1
@@ -170,6 +186,11 @@ print "Please enter your operation. "
 				print "Height? "
 				$n3 = Float(gets.chomp)
 				$n3 = $n1 * $n2 * $n3
+				puts "#{$n3}"
+			elsif $op4 == "pir2"
+				puts "Radius? "
+				$n1 = Float(gets.chomp)
+				$n3 = ($n1 ** 2) * 3.14
 				puts "#{$n3}"
 			elsif $op4 == "quit"
 				$b = 0
@@ -243,7 +264,7 @@ print "Please enter your operation. "
 			print "#{$n3} * __ "
 			$n1 = Float(gets.chomp)
 			$n3 = $n3 * $n1
-			puts "#{$n3}"	
+			puts "#{$n3}"
 		elsif $op3 == "divide"
 			print "#{$n3} / __ "
 			$n1 = Float(gets.chomp)
@@ -295,6 +316,9 @@ print "Please enter your operation. "
 			$op3 = 0
 			$op = "start"
 			puts "Purge successful"
+		elsif $op3 == "clear"
+			$cl = `clear`
+			print "#{clear}"
 		end
 		elsif $op == "read"
 			print "What do you want to read? "
@@ -309,15 +333,6 @@ print "Please enter your operation. "
 				puts "n1 == #$n1 "
 				puts "n2 == #$n2 "
 				puts "n3 == #$n3 "
-		elsif $op == "set"
-			print "Which variable do you want to set? "
-			$set == gets.chomp
-			if $set == "n1"
-				$n1 = Float(gets.chomp)
-			elsif $set == "n2"
-				$n2 = Float(gets.chomp)
-			elsif $set == "n3"
-end
 end
 end
 end

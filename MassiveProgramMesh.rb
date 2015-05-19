@@ -5,7 +5,24 @@ $start = 0
 $back = 0
 while $start != 1
 	puts "What folder would you like to go to? "
-		`ls`
+		$tcom = `ls`
+		puts "#$tcom"
+	if $folder == 1 and $back != 1
+		Dir.chdir"python"
+	elsif $folder == 1 and $back == 1
+		Dir.chdir".."
+		Dir.chdir"python"
+	elsif $folder == 2 and $back != 1
+		`cd ruby`
+	elsif $folder == 2 and $back == 1
+		`cd ..`
+		`cd ruby`
+	elsif $folder == 3 and $back != 1
+			`cd sean`
+	elsif $folder == 3 and $back == 1
+		`cd ..`
+		`cd sean`
+		else puts "Invalid folder"
 	$com == gets.chomp
 	if $com == "python"
 		$folder = 1
@@ -17,29 +34,15 @@ while $start != 1
 		$folder = 3
 		$back = 1
 	elsif $com == ".."
-		`cd ..`
+		Dir.chdir".."
 		$back == $back - 1
 	elsif $com == "ls"
-		`ls`
+		$tcom = `ls`
+		puts "#$tcom"
 	elsif $com == "quit"
 		$start == 1
+		exec"clear"
 	end
-		if $folder == 1 and $back != 1
-			`cd python`
-		elsif $folder == 1 and $back == 1
-			`cd ..`
-			`cd python`
-		elsif $folder == 2 and $back != 1
-			`cd ruby`
-		elsif $folder == 2 and $back == 1
-			`cd ..`
-			`cd ruby`
-		elsif $folder == 3 and $back != 1
-			`cd sean`
-		elsif $folder == 3 and $back == 1
-			`cd ..`
-			`cd sean`
-		else puts "Invalid folder"
 		end
 		
 end

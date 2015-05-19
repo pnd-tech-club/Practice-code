@@ -32,15 +32,23 @@ while $start != 1
 			puts "punnet square (PunnetSquareMaker.rb)"
 			puts "laughing (laughing.rb and laughingV2.rb)"
 			puts "shut up (Shutup.rb and ShutupV2.rb)"
+			puts "Fib Numbers (FibNumControlled.rb)"
 			puts "quit (Quits the program)"
-			puts "clear(Note:Will terminate program, no idea why. "
+			puts "clear (Clears terminal screen)"
 		elsif $program == "quit"
 			$start = 1
+			exec 'clear'
 		elsif $program == "clear"
-			`clear`
+			clear = `clear`
+			print "#{clear}"
 		elsif $program == "python"
-			`cd ..`
-			`cd python`
-			`python mathz.py`
+			cd1 = `cd ..`
+			cd2 = `cd python`
+			python = `python mathz.py`
+			print "#{cd1}"
+			print "#{cd2}"
+			print "#{python}"
+		elsif $program == "Fib Numbers"
+			load 'FibNumControlled.rb'
 		end
 end

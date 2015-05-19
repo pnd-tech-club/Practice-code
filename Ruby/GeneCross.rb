@@ -17,10 +17,10 @@ while  $start != 1
 		$w = Float(gets.chomp)
 		$sw = $w
 		puts "You have a #{$l} x #{$w} square. "
-		puts "#{$sl} st/rd/th letter? "
+		puts "#{$sl} letter? "
 		$sl = $sl - 1
 		$total = $total + 1
-		
+
 	elsif $type == "dihybrid"
 		puts "Work in progress, nothing here yet. "
 	elsif $type == "quit"
