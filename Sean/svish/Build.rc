@@ -1,3 +1,0 @@
-#!/bin/rc
-echo 'Starting Build!'
-go build svish.go
