@@ -30,9 +30,6 @@ while $start != 1
 	elsif $com == "ruby"
 		$folder = 2
 		$back = 1
-	elsif $com == "sean"
-		$folder = 3
-		$back = 1
 	elsif $com == ".."
 		Dir.chdir".."
 		$back == $back - 1
