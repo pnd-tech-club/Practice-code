@@ -22,7 +22,7 @@ while  $start != 1
 		$total = $total + 1
 
 	elsif $type == "dihybrid"
-		puts "Work in progress, nothing here yet. "
+		puts "Work in progress"
 	elsif $type == "quit"
 		$start = 1
 	else puts "Invalid type. The valid types are normal and dihybrid. "

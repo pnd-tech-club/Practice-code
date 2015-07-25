@@ -26,6 +26,8 @@ while $start != 1
 					load 'ShutupV2.rb'
 				else puts "Invalid version"
 				end
+		elsif $program == "Finals"
+			load 'FinalsCalc.rb'
 		elsif $program == "help"
 			puts "The valid commands are: "
 			puts "math (NewMaths.rb)"
